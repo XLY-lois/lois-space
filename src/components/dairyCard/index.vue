@@ -18,12 +18,14 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  height: 100%;
+  width: 100%;
   .card {
-    width: 80%;
-    color: white;
+    width: 90%;
     height: 200px;
+    color: white;
     border-radius: 15px;
-    background: #222222;
+    background: #2c2c2c5c;
     box-shadow: 11px 11px 33px #121212, -11px -11px 33px #323232;
   }
 }

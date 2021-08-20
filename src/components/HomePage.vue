@@ -9,22 +9,25 @@
     </div>
     <div class="body">
       <dairyCard></dairyCard>
+      <v-btn class="" fab dark color="rgb(60 60 60 / 1)">
+        <v-icon dark> mdi-plus </v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import logo from "../assets/loisWhite.png";
-import dairyCard from "../components/dairyCard"
+import dairyCard from "../components/dairyCard";
 export default {
   data() {
     return {
       logo,
     };
   },
-  components:{
-    dairyCard
-  }
+  components: {
+    dairyCard,
+  },
 };
 </script>
 
@@ -40,6 +43,9 @@ export default {
     margin: 0;
     display: flex;
     justify-content: space-between;
+    color: white;
+    background: #2c2c2c5c;
+    box-shadow: 11px 11px 33px #121212, -11px -11px 33px #323232;
     .logo {
       margin: 1rem;
       height: 6vh;
@@ -54,6 +60,7 @@ export default {
     }
   }
   .body {
+    margin-top: 5vh;
     width: 80%;
   }
 }
