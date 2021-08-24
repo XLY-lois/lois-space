@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- <v-card elevation="6">88888</v-card> -->
     <div class="card">wwwwwhhjhhfsdjhjh</div>
   </div>
 </template>
@@ -18,15 +17,19 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  height: 100%;
-  width: 100%;
+  width: 90%;
+  margin: 0;
+  padding: 0;
   .card {
-    width: 90%;
+    width: 100%;
     height: 200px;
+    padding: 5vh;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
     color: white;
     border-radius: 15px;
     background: #2c2c2c5c;
-    box-shadow: 11px 11px 33px #121212, -11px -11px 33px #323232;
+    box-shadow: 5px 5px 15px #121212, -5px -5px 15px #323232;
   }
 }
 </style>

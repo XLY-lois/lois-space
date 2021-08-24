@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header">
-      <img class="logo" :src="logo" alt="" />
+      <img @click="jumpTo('/')" class="logo" :src="logo" alt="" />
       <div class="right-top">
         <span>留言</span>
         <span>关于</span>
@@ -9,8 +9,17 @@
     </div>
     <div class="body">
       <dairyCard></dairyCard>
-      <v-btn class="" fab dark color="rgb(60 60 60 / 1)">
-        <v-icon dark> mdi-plus </v-icon>
+      <dairyCard></dairyCard>
+      <dairyCard></dairyCard>
+      <dairyCard></dairyCard>
+      <v-btn
+        class="to-top-btn"
+        fab
+        dark
+        color="rgb(60 60 60 / 1)"
+        @click="toTopFun()"
+      >
+        <img class="to-top-icon" :src="toTop" alt="" />
       </v-btn>
     </div>
   </div>
@@ -18,12 +27,22 @@
 
 <script>
 import logo from "../assets/loisWhite.png";
+import toTop from "../assets/toTop.png";
 import dairyCard from "../components/dairyCard";
 export default {
   data() {
     return {
       logo,
+      toTop,
     };
+  },
+  methods: {
+    toTopFun() {
+      scrollTo(0, 0);
+    },
+    jumpTo(url) {
+      this.$router.push(url);
+    },
   },
   components: {
     dairyCard,
@@ -49,9 +68,10 @@ export default {
     .logo {
       margin: 1rem;
       height: 6vh;
+      cursor: pointer;
     }
     .right-top {
-      margin-right: 5vh;
+      margin-right: 3vh;
       width: 10vh;
       display: flex;
       justify-content: space-between;
@@ -60,8 +80,19 @@ export default {
     }
   }
   .body {
-    margin-top: 5vh;
-    width: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .to-top-btn {
+      position: fixed;
+      bottom: 3vh;
+      right: 3vh;
+      .to-top-icon {
+        width: 4vh;
+        height: 4vh;
+      }
+    }
   }
 }
 </style>

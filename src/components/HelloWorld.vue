@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="wel-container">
     <div><img :src="logo" alt=""></div>
     <div class="loading">Welcome to Lois'Space</div>
     <div class="next-btn" @click="jumpTo('/homepage')">Enter →</div>
@@ -37,12 +37,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 @import url(https://fonts.googleapis.com/css?family=Lato);
 
-.container {
+.wel-container {
   display: flex;
-  height: 100vh;
+  height: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
