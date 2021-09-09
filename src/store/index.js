@@ -5,8 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    visitorInfo:{
+      name:'',
+      visitedTime:'',
+      ip:''
+    }
   },
   mutations: {
+    SET_VISITOR_INFO(state,newInfo){
+      state.visitorInfo = newInfo
+    }
   },
   actions: {
   },

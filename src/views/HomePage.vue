@@ -8,33 +8,39 @@
       </div>
     </div>
     <div class="body">
-      <dairyCard></dairyCard>
-      <dairyCard></dairyCard>
-      <dairyCard></dairyCard>
-      <dairyCard></dairyCard>
-      <v-btn
-        class="to-top-btn"
-        fab
-        dark
-        color="rgb(60 60 60 / 1)"
-        @click="toTopFun()"
-      >
+      <!-- <glassCard></glassCard> -->
+      <dairyCard v-for="item in noteList" :key="item.title" :noteObj="item">
+      </dairyCard>
+      <v-btn class="to-top-btn" fab dark color="#D1B6E1" @click="toTopFun()">
         <img class="to-top-icon" :src="toTop" alt="" />
       </v-btn>
     </div>
+    <span @click="jumpTo('loisAddPage')">发表</span>
   </div>
 </template>
 
 <script>
-import logo from "../assets/loisWhite.png";
+import logo from "../assets/loisBlack.png";
 import toTop from "../assets/toTop.png";
 import dairyCard from "../components/dairyCard";
+import glassCard from "../components/glassCard";
+// import noteDetails from "../components/noteDetails"
 export default {
   data() {
     return {
       logo,
       toTop,
+      noteList: "",
+      curPreview: {},
     };
+  },
+  components: {
+    dairyCard,
+    // noteDetails
+    glassCard,
+  },
+  mounted() {
+    this.getNoteList();
   },
   methods: {
     toTopFun() {
@@ -43,40 +49,46 @@ export default {
     jumpTo(url) {
       this.$router.push(url);
     },
-  },
-  components: {
-    dairyCard,
+    async getNoteList() {
+      await this.$http.get("/getNoteList").then((res) => {
+        this.noteList = res.data.noteList;
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
-  background-color: #222;
+  background-color: #fff;
   margin: 0;
   justify-content: start;
   padding: 0;
   .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 8vh;
     width: 100%;
     padding: 0;
     margin: 0;
-    display: flex;
-    justify-content: space-between;
-    color: white;
-    background: #2c2c2c5c;
-    box-shadow: 11px 11px 33px #121212, -11px -11px 33px #323232;
+    background: #9dc8c8;
     .logo {
       margin: 1rem;
       height: 6vh;
       cursor: pointer;
     }
     .right-top {
-      margin-right: 3vh;
-      width: 10vh;
+      margin-right: 2vw;
+      width: 8vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: white;
+      font-family: Lato;
+      color: #2e294e;
+      font-weight: 1000;
+      font-size: 1vw;
+      letter-spacing: 0.5vw;
     }
   }
   .body {

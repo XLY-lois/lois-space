@@ -1,35 +1,106 @@
 <template>
   <div class="container">
-    <div class="card">wwwwwhhjhhfsdjhjh</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="title-box">
+          <span class="title">{{ noteObj.title }}</span>
+          <span class="date">2021-8-25</span>
+        </div>
+        <v-btn color="#9c64a7" width="8vw" @click="showDetails()">
+          MORE
+        </v-btn>
+      </div>
+      <div class="card-content">
+        <img class="details-img" :src="testImg" alt="" />
+        <div v-html="htmlContent"></div>
+      </div>
+      <div class="card-footer"></div>
+    </div>
+    <noteDetails ref="details" :noteObj="noteObj"></noteDetails>
   </div>
 </template>
 
 <script>
+import noteDetails from "../../components/noteDetails";
+import testImg from "../../assets/test.jpg";
+
 export default {
   name: "index",
   data() {
-    return {};
+    return {
+      testImg,
+      htmlContent: "",
+    };
   },
-  props: {},
-  methods: {},
+  components: {
+    noteDetails,
+  },
+  props: ["noteObj"],
+  mounted() {
+    this.htmlContent = `<p style="color:#243E56;">${this.noteObj.content}</p>`;
+  },
+  methods: {
+    showDetails() {
+      this.$refs.details.showOverLay();
+      console.log("show");
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
-  width: 90%;
+  width: 80%;
   margin: 0;
   padding: 0;
+  font-family: Lato;
+  color: #2e294e;
   .card {
     width: 100%;
-    height: 200px;
-    padding: 5vh;
+    // max-height: 50vh;
+    padding: 2vh;
     margin-top: 3vh;
     margin-bottom: 3vh;
-    color: white;
-    border-radius: 15px;
-    background: #2c2c2c5c;
-    box-shadow: 5px 5px 15px #121212, -5px -5px 15px #323232;
+    // background: #fff;
+    overflow: hidden;
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .title-box {
+        display: flex;
+        align-items: baseline;
+        .title {
+          font-size: 36px;
+          font-weight: 1000;
+        }
+        .date {
+          font-family: Lato;
+          color: #2e294e;
+          margin-left: 1vw;
+          font-size: 14px;
+        }
+      }
+    }
+    .card-content {
+      padding: 1%;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 6;
+      border-top: 1px solid #d1b6e1;
+      border-bottom: 1px solid #d1b6e1;
+      overflow: hidden;
+      .details-img {
+        width: 50%;
+      }
+    }
+    .card-footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      font-size: 90%;
+      color: #000;
+    }
   }
 }
 </style>
