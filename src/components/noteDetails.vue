@@ -4,11 +4,10 @@
       <div class="details-card">
         <div class="details-header">
           <h1>{{ noteObj.title }}</h1>
-          <!-- <v-btn color="#9c64a7" @click="overlay = false"> hide </v-btn> -->
         </div>
         <div class="details-content">
-          <img class="details-img" :src="testImg" alt="">
-          <p>{{ noteObj.content }}</p>
+          <!-- <img class="details-img" :src="testImg" alt=""> -->
+          <div v-html="noteObj.content_html"></div>
         </div>
         <div class="details-footer">
           <v-btn color="#9c64a7" @click="overlay = false"> hide </v-btn>
@@ -19,13 +18,13 @@
 </template>
 
 <script>
-import testImg from "../assets/test.jpg"
+import testImg from "../assets/test.jpg";
 export default {
   name: "noteDetails",
   data() {
     return {
       overlay: false,
-      testImg
+      testImg,
     };
   },
   props: ["noteObj"],
@@ -33,11 +32,9 @@ export default {
   methods: {
     hideOverLay() {
       this.overlay = false;
-      // console.log(this.curPreview)
     },
     showOverLay() {
       this.overlay = true;
-      // console.log(this.curPreview)
     },
   },
   watch: {
@@ -68,8 +65,12 @@ export default {
       margin-bottom: 2vh;
     }
     .details-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       .details-img {
-        width: 100%;
+        width: 80%;
       }
     }
     .details-footer {

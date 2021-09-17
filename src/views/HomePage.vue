@@ -11,6 +11,7 @@
       <!-- <glassCard></glassCard> -->
       <dairyCard v-for="item in noteList" :key="item.title" :noteObj="item">
       </dairyCard>
+      <!-- <dairyCard ></dairyCard> -->
       <v-btn class="to-top-btn" fab dark color="#D1B6E1" @click="toTopFun()">
         <img class="to-top-icon" :src="toTop" alt="" />
       </v-btn>
@@ -24,23 +25,21 @@ import logo from "../assets/loisBlack.png";
 import toTop from "../assets/toTop.png";
 import dairyCard from "../components/dairyCard";
 import glassCard from "../components/glassCard";
-// import noteDetails from "../components/noteDetails"
 export default {
   data() {
     return {
       logo,
       toTop,
-      noteList: "",
+      noteList: [],
       curPreview: {},
     };
   },
   components: {
     dairyCard,
-    // noteDetails
     glassCard,
   },
   mounted() {
-    this.getNoteList();
+    this.getArticleList()
   },
   methods: {
     toTopFun() {
@@ -49,10 +48,12 @@ export default {
     jumpTo(url) {
       this.$router.push(url);
     },
-    async getNoteList() {
-      await this.$http.get("/getNoteList").then((res) => {
-        this.noteList = res.data.noteList;
-      });
+    async getArticleList() {
+      const res = await this.$http
+        .get("/api/queryAllArticles")
+        .then((res) => {
+          this.noteList = res.data
+        });
     },
   },
 };

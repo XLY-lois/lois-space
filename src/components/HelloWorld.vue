@@ -21,7 +21,7 @@
 
 <script>
 import logo from "../assets/loisBlack.png";
-import { mapState } from "vuex"
+import { mapState } from "vuex";
 export default {
   name: "HelloWorld",
   data() {
@@ -34,10 +34,10 @@ export default {
   mounted() {
     this.animation();
   },
-  computed:{
+  computed: {
     ...mapState({
-      visitorInfo:state => state.visitorInfo
-    })
+      visitorInfo: (state) => state.visitorInfo,
+    }),
   },
   methods: {
     animation() {
@@ -57,9 +57,19 @@ export default {
           name: this.visitorName,
           visitedTime: new Date(),
         });
-        console.log(this.visitorInfo);
+        // console.log(this.visitorInfo);
+        // this.getVisitor()
         this.$router.push(url);
       }
+    },
+    async getVisitor() {
+      const res = await this.$http
+        .get("/api/getVisitor", {
+          params: {
+            ID: this.visitorInfo
+          },
+        })
+        .then((res) => {});
     },
   },
 };

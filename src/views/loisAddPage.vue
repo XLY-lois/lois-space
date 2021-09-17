@@ -3,8 +3,8 @@
     <div class="card">
       <div class="card-header">
         <div class="title-box">
-          <v-text-field 
-            v-model.trim="articleObj.title" 
+          <v-text-field
+            v-model.trim="articleObj.title"
             label="title"
             color="#9C64A7"
           >
@@ -16,12 +16,9 @@
         <div id="div1"></div>
       </div>
       <div class="card-footer"></div>
-      <v-btn 
-        class="submit-btn" 
-        color="#9c64a7" 
-        width="8vw"
-        @click="submit"
-      > SUBMIT </v-btn>
+      <v-btn class="submit-btn" color="#9c64a7" width="8vw" @click="submit">
+        SUBMIT
+      </v-btn>
     </div>
   </div>
 </template>
@@ -32,34 +29,41 @@ export default {
   name: "loisAddPage",
   data() {
     return {
-      articleObj:{
-        title:'',
-        time:'',
-        htmlContent:'',
-        textContent:''
-      }
+      articleObj: {
+        title: "",
+        time: "",
+        htmlContent: "",
+        textContent: "",
+      },
     };
   },
   props: {},
   mounted() {
     const editor = new E("#div1");
     editor.create();
-    this.editor = editor
-    this.articleObj.time = this.getDate(new Date())
+    this.editor = editor;
+    this.articleObj.time = this.getDate(new Date());
   },
   methods: {
-    submit() {
-      this.articleObj = { 
-        ...this.articleObj,
-        htmlContent: this.editor.txt.html(),
-        textContent: this.editor.txt.text()      
-      }
-      console.log(this.articleObj)
-    },
     getDate(time) {
-      let date = `${time.getFullYear()}年${time.getMonth() + 1}月${time.getDate()}日`
-      return date
-    }
+      let date = `${time.getFullYear()}年${
+        time.getMonth() + 1
+      }月${time.getDate()}日`;
+      return date;
+    },
+    async submit() {
+      //要用post请求
+      this.articleObj = {
+        ...this.articleObj,
+        content_html: this.editor.txt.html(),
+        content_text: this.editor.txt.text(),
+      };
+      const res = await this.$http
+        .post("/api/addArticle", this.articleObj)
+        .then((res) => {
+          console.log(res)
+        });
+    },
   },
   components: {},
 };

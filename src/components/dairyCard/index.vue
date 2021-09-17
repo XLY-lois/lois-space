@@ -4,18 +4,15 @@
       <div class="card-header">
         <div class="title-box">
           <span class="title">{{ noteObj.title }}</span>
-          <span class="date">2021-8-25</span>
+          <span class="date">{{ noteObj.create_time }}</span>
         </div>
-        <v-btn color="#9c64a7" width="8vw" @click="showDetails()">
-          MORE
-        </v-btn>
+        <v-btn color="#9c64a7" width="8vw" @click="showDetails()"> MORE </v-btn>
       </div>
       <div class="card-content">
-        <img class="details-img" :src="testImg" alt="" />
-        <div v-html="htmlContent"></div>
+        <div v-html="noteObj.content_html"></div>
       </div>
-      <div class="card-footer"></div>
     </div>
+    <div class="card-footer"></div>
     <noteDetails ref="details" :noteObj="noteObj"></noteDetails>
   </div>
 </template>
@@ -36,9 +33,7 @@ export default {
     noteDetails,
   },
   props: ["noteObj"],
-  mounted() {
-    this.htmlContent = `<p style="color:#243E56;">${this.noteObj.content}</p>`;
-  },
+  mounted() {},
   methods: {
     showDetails() {
       this.$refs.details.showOverLay();
@@ -84,15 +79,23 @@ export default {
     }
     .card-content {
       padding: 1%;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       border-top: 1px solid #d1b6e1;
       border-bottom: 1px solid #d1b6e1;
-      overflow: hidden;
-      .details-img {
-        width: 50%;
+      .text-content {
+        width: 80%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 6;
+        overflow: hidden;
       }
+      // .details-img {
+      //   width: 80%;
+      //   height: 50%;
+      // }
     }
     .card-footer {
       display: flex;
