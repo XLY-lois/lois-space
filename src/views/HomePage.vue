@@ -9,7 +9,7 @@
     </div>
     <div class="body">
       <!-- <glassCard></glassCard> -->
-      <dairyCard v-for="item in noteList" :key="item.title" :noteObj="item">
+      <dairyCard v-for="item in noteList" :key="item.id" :noteObj="item">
       </dairyCard>
       <!-- <dairyCard ></dairyCard> -->
       <v-btn class="to-top-btn" fab dark color="#D1B6E1" @click="toTopFun()">
@@ -39,7 +39,7 @@ export default {
     glassCard,
   },
   mounted() {
-    this.getArticleList()
+    this.getArticleList();
   },
   methods: {
     toTopFun() {
@@ -49,11 +49,9 @@ export default {
       this.$router.push(url);
     },
     async getArticleList() {
-      const res = await this.$http
-        .get("/api/queryAllArticles")
-        .then((res) => {
-          this.noteList = res.data
-        });
+      const res = await this.$http.get("/api/queryAllArticles").then((res) => {
+        this.noteList = res.data;
+      });
     },
   },
 };

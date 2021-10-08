@@ -4,7 +4,7 @@
       <div class="card-header">
         <div class="title-box">
           <v-text-field
-            v-model.trim="articleObj.title"
+            v-model.trim="articleObj.titleContent"
             label="title"
             color="#9C64A7"
           >
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       articleObj: {
-        title: "",
+        titleContent: "",
         time: "",
         htmlContent: "",
         textContent: "",
@@ -55,8 +55,8 @@ export default {
       //要用post请求
       this.articleObj = {
         ...this.articleObj,
-        content_html: this.editor.txt.html(),
-        content_text: this.editor.txt.text(),
+        htmlContent: this.editor.txt.html(),
+        textContent: this.editor.txt.text(),
       };
       const res = await this.$http
         .post("/api/addArticle", this.articleObj)
