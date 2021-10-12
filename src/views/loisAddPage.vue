@@ -46,9 +46,9 @@ export default {
   },
   methods: {
     getDate(time) {
-      let date = `${time.getFullYear()}年${
+      let date = `${time.getFullYear()}-${
         time.getMonth() + 1
-      }月${time.getDate()}日`;
+      }-${time.getDate()}`;
       return date;
     },
     async submit() {

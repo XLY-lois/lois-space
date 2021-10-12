@@ -3,20 +3,18 @@
     <div class="header">
       <img @click="jumpTo('/')" class="logo" :src="logo" alt="" />
       <div class="right-top">
-        <span>留言</span>
-        <span>关于</span>
+        <span class="leaving-message">留言</span>
+        <span class="about">关于</span>
+        <span @click="jumpTo('loisAddPage')">发表</span>
       </div>
     </div>
     <div class="body">
-      <!-- <glassCard></glassCard> -->
       <dairyCard v-for="item in noteList" :key="item.id" :noteObj="item">
       </dairyCard>
-      <!-- <dairyCard ></dairyCard> -->
       <v-btn class="to-top-btn" fab dark color="#D1B6E1" @click="toTopFun()">
         <img class="to-top-icon" :src="toTop" alt="" />
       </v-btn>
     </div>
-    <span @click="jumpTo('loisAddPage')">发表</span>
   </div>
 </template>
 
@@ -50,7 +48,7 @@ export default {
     },
     async getArticleList() {
       const res = await this.$http.get("/api/queryAllArticles").then((res) => {
-        this.noteList = res.data;
+        this.noteList = res.data.data;
       });
     },
   },
@@ -78,16 +76,19 @@ export default {
       cursor: pointer;
     }
     .right-top {
-      margin-right: 2vw;
-      width: 8vw;
+      margin-right: 1vw;
+      width: 12vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: Lato;
       color: #2e294e;
       font-weight: 1000;
-      font-size: 1vw;
-      letter-spacing: 0.5vw;
+      font-size: 14px;
+      letter-spacing: 0.4vw;
+      span {
+        cursor: pointer;
+      }
     }
   }
   .body {

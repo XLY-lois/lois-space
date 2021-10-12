@@ -55,18 +55,16 @@ export default {
       if (this.visitorName) {
         this.$store.commit("SET_VISITOR_INFO", {
           name: this.visitorName,
-          visitedTime: new Date(),
         });
-        // console.log(this.visitorInfo);
-        // this.getVisitor()
+        this.getVisitor()
         this.$router.push(url);
       }
     },
     async getVisitor() {
       const res = await this.$http
-        .get("/api/getVisitor", {
+        .get("/api/addVisitor", {
           params: {
-            ID: this.visitorInfo
+            name: this.visitorInfo.name
           },
         })
         .then((res) => {});

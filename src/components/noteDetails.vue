@@ -4,14 +4,14 @@
       <div class="details-card">
         <div class="details-header">
           <h1>{{ noteObj.title }}</h1>
+          <v-btn color="#9c64a7" @click="overlay = false"> hide </v-btn>
         </div>
         <div class="details-content">
           <!-- <img class="details-img" :src="testImg" alt=""> -->
           <div v-html="noteObj.content_html"></div>
         </div>
-        <div class="details-footer">
-          <v-btn color="#9c64a7" @click="overlay = false"> hide </v-btn>
-        </div>
+        <!-- <div class="details-footer">
+        </div> -->
       </div>
     </v-overlay>
   </div>
@@ -63,6 +63,9 @@ export default {
     .details-header {
       border-bottom: 1px solid #9d8fa0af;
       margin-bottom: 2vh;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .details-content {
       display: flex;
@@ -73,11 +76,11 @@ export default {
         width: 80%;
       }
     }
-    .details-footer {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-    }
+    // .details-footer {
+    //   display: flex;
+    //   justify-content: flex-end;
+    //   align-items: center;
+    // }
   }
 }
 </style>
