@@ -52,7 +52,6 @@ export default {
       return date;
     },
     async submit() {
-      //要用post请求
       this.articleObj = {
         ...this.articleObj,
         htmlContent: this.editor.txt.html(),

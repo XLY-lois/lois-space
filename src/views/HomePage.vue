@@ -5,7 +5,7 @@
       <div class="right-top">
         <span class="leaving-message">留言</span>
         <span class="about">关于</span>
-        <span @click="jumpTo('loisAddPage')">发表</span>
+        <span @click.stop="dialog = true">后台</span>
       </div>
     </div>
     <div class="body">
@@ -15,6 +15,34 @@
         <img class="to-top-icon" :src="toTop" alt="" />
       </v-btn>
     </div>
+    <v-dialog
+      v-model="dialog"
+      transition="dialog-bottom-transition"
+      max-width="50%"
+    >
+      <v-card>
+        <v-toolbar color="#9C64A7" dark>确认您的身份</v-toolbar>
+        <v-card-text>
+          <div class="text-h2 pa-12">
+            <v-text-field
+              label="ID"
+              :rules="rules"
+              hide-details="auto"
+              v-model="identityObj.id"
+            ></v-text-field>
+            <v-text-field
+              label="PASSWORD"
+              :rules="rules"
+              v-model="identityObj.password"
+            ></v-text-field>
+          </div>
+        </v-card-text>
+        <v-card-actions class="justify-end">
+          <v-btn text @click="dialog = false">Close</v-btn>
+          <v-btn text @click="identity()">Submit</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -30,6 +58,12 @@ export default {
       toTop,
       noteList: [],
       curPreview: {},
+      dialog: false,
+      identityObj: {
+        id: "",
+        password: "",
+      },
+      rules: [(value) => !!value || "Required."],
     };
   },
   components: {
@@ -49,7 +83,21 @@ export default {
     async getArticleList() {
       const res = await this.$http.get("/api/queryAllArticles").then((res) => {
         this.noteList = res.data.data;
+        console.log(this.noteList);
       });
+    },
+    identity() {
+      if (
+        this.identityObj.id == "123456" &&
+        this.identityObj.password == "123456"
+      ) {
+        this.jumpTo("admin");
+      }
+      this.identityObj = {
+        id: "",
+        password: "",
+      }
+      this.dialog = false;
     },
   },
 };
@@ -81,7 +129,7 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-family: Lato;
+      font-family: sans-serif;
       color: #2e294e;
       font-weight: 1000;
       font-size: 14px;

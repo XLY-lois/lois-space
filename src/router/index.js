@@ -24,6 +24,11 @@ const routes = [
     component: () => import('../views/loisAddPage.vue')
   },
   {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/admin/index.vue')
+  },
+  {
     path: '/notFound',
     name: 'NotFound',
     component: () => import('../views/notFound.vue')

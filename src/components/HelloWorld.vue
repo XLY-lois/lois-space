@@ -14,7 +14,7 @@
         >
         </v-text-field>
       </div>
-      <div class="next-btn" @click="jumpTo('/homepage')">Enter →</div>
+      <div class="next-btn" @click="jumpTo('/homepage')">OK →</div>
     </div>
   </div>
 </template>
