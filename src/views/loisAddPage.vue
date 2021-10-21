@@ -73,7 +73,7 @@ export default {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: Lato;
+  font-family: sans-serif;
   color: #2e294e;
   display: flex;
   justify-content: center;
@@ -91,7 +91,7 @@ export default {
         display: flex;
         align-items: baseline;
         .date {
-          font-family: Lato;
+          font-family: sans-serif;
           color: #2e294e;
           margin-left: 1vw;
           font-size: 14px;

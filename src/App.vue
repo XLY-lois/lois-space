@@ -19,7 +19,7 @@ export default {
 <style>
 html {
   overflow-y: auto !important;
-  font-family: "SimHei";
+  font-family: "sans-serif";
 }
 .main {
   margin: 0;

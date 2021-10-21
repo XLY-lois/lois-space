@@ -4,7 +4,7 @@
       <div class="card-header">
         <div class="title-box">
           <span class="title">{{ noteObj.title }}</span>
-          <span class="date">{{ noteObj.create_time}}</span>
+          <span class="date">{{ noteObj.create_time }}</span>
         </div>
         <v-btn color="#9c64a7" width="8vw" @click="showDetails()"> MORE </v-btn>
       </div>
@@ -32,8 +32,7 @@ export default {
   components: {
     noteDetails,
   },
-  filters: {
-  },
+  filters: {},
   props: ["noteObj"],
   mounted() {},
   methods: {
@@ -50,7 +49,7 @@ export default {
   width: 80%;
   margin: 0;
   padding: 0;
-  font-family: Lato;
+  font-family: sans-serif;
   color: #2e294e;
   .card {
     width: 100%;
@@ -70,7 +69,7 @@ export default {
           font-weight: 1000;
         }
         .date {
-          font-family: Lato;
+          font-family: sans-serif;
           color: #2e294e;
           margin-left: 1vw;
           font-size: 14px;
@@ -100,6 +99,9 @@ export default {
       font-size: 90%;
       color: #000;
     }
+  }
+  .card:hover {
+    box-shadow: 0px 0px 10px #d2d2d2;
   }
 }
 </style>

@@ -34,6 +34,7 @@
               label="PASSWORD"
               :rules="rules"
               v-model="identityObj.password"
+              type="password"
             ></v-text-field>
           </div>
         </v-card-text>
