@@ -84,7 +84,6 @@ export default {
     async getArticleList() {
       const res = await this.$http.get("/api/queryAllArticles").then((res) => {
         this.noteList = res.data.data;
-        console.log(this.noteList);
       });
     },
     identity() {

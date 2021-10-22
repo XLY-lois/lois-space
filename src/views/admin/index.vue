@@ -1,124 +1,93 @@
 <template>
   <div class="admin-container">
-    <div class="btn-group">
-      <v-btn @click="showSelect" color="#9c64a7" dark> Normal Button </v-btn>
+    <div class="admin-head">
+      <img
+        class="back-icon"
+        :src="backIcon"
+        alt=""
+        @click="jumpTo('homePage')"
+      />
     </div>
-    <template>
-      <v-data-table
-        v-model="selected"
-        :headers="headers"
-        :items="desserts"
-        :items-per-page="10"
-        class="elevation-1"
-        show-select
-        :single-select="singleSelect"
-        item-key="name"
-      ></v-data-table>
-    </template>
+    <div class="article-list">
+      <div class="btn-group">
+        <v-btn class="btn" @click="delArticleById" color="#ffb6b9" dark>
+          删除
+        </v-btn>
+        <v-btn class="btn" color="#bbded6" dark @click="jumpTo('/loisAddPage')"
+          >新增</v-btn
+        >
+        <v-btn
+          class="btn"
+          color="#8ac6d1"
+          dark
+          @click="jumpTo('/loisAddPage', selected[0].id)"
+          >编辑</v-btn
+        >
+      </div>
+      <template>
+        <v-data-table
+          v-model="selected"
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="10"
+          class="elevation-1"
+          show-select
+          :single-select="singleSelect"
+          item-key="id"
+        ></v-data-table>
+      </template>
+    </div>
   </div>
 </template>
 
 
 <script>
+import backIcon from "../../assets/back.png";
 export default {
   data() {
     return {
       singleSelect: false,
-      selected: [],
+      selected: [], //选择的文章列表
       headers: [
-        { text: "列1", value: "calories" },
-        { text: "列2", value: "fat" },
-        { text: "列3", value: "carbs" },
-        { text: "列4", value: "protein" },
-        { text: "列5", value: "iron" },
+        { text: "标题", value: "title" },
+        // { text: "文本内容", value: "content_text" },
+        // { text: "html内容", value: "content_html" },
+        { text: "创建时间", value: "create_time" },
       ],
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: "1%",
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: "1%",
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: "7%",
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: "8%",
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: "16%",
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: "0%",
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: "2%",
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: "45%",
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: "22%",
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: "6%",
-        },
-      ],
+      desserts: [], //文章列表
+      backIcon,
     };
   },
+  mounted() {
+    this.getArticleList();
+  },
   methods: {
-    showSelect() {
-      console.log(this.selected);
+    jumpTo(url, id) {
+      this.$router.push({
+        path: url,
+        query: {
+          id
+        },
+      });
+    },
+    async getArticleList() {
+      const res = await this.$http.get("/api/queryAllArticles").then((res) => {
+        this.desserts = res.data.data;
+      });
+    },
+    async delArticleById() {
+      let idArr = [];
+      this.selected.forEach((element) => {
+        idArr.push(element.id);
+      });
+      const res = await this.$http
+        .post("/api/delArticleById", { idArr })
+        .then((res) => {
+          if (res.status == 200) {
+            alert("删除成功");
+            this.getArticleList();
+          }
+        });
     },
   },
 };
@@ -126,10 +95,34 @@ export default {
 
 <style lang="scss" scoped>
 .admin-container {
+  width: 100%;
+  height: 100%;
+  background-color: #fff7f7;
   display: flex;
   justify-items: center;
+  align-items: center;
   flex-direction: column;
-  .btn-group {
+  .admin-head {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .back-icon {
+      width: 1.5vw;
+      height: 1.5vw;
+      margin: 1vh 1vw;
+    }
+  }
+  .article-list {
+    margin-top: 5vh;
+    width: 80%;
+    .btn-group {
+      margin: 2vh 0;
+      display: flex;
+      justify-content: flex-end;
+      .btn {
+        margin: 0 0.5vw;
+      }
+    }
   }
 }
 </style>

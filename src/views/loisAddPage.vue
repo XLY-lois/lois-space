@@ -39,10 +39,14 @@ export default {
   },
   props: {},
   mounted() {
+    this.articleObj.time = this.getDate(new Date());
     const editor = new E("#div1");
     editor.create();
+    if (this.$route.query.id) {
+      this.queryArticleById(this.$route.query.id, editor);
+      console.log(this.articleObj);
+    }
     this.editor = editor;
-    this.articleObj.time = this.getDate(new Date());
   },
   methods: {
     getDate(time) {
@@ -57,10 +61,31 @@ export default {
         htmlContent: this.editor.txt.html(),
         textContent: this.editor.txt.text(),
       };
+      if (this.$route.query.id) {
+        const res = await this.$http
+          .post("/api/editArticleById", this.articleObj)
+          .then((res) => {
+            console.log(res);
+          });
+      } else {
+        const res = await this.$http
+          .post("/api/addArticle", this.articleObj)
+          .then((res) => {
+            console.log(res);
+          });
+      }
+    },
+    async queryArticleById(id, editor) {
       const res = await this.$http
-        .post("/api/addArticle", this.articleObj)
+        .get("/api/queryArticleById", {
+          params: { id },
+        })
         .then((res) => {
-          console.log(res)
+          this.articleObj = {
+            ...this.articleObj,
+            titleContent: res.data.data[0].title,
+          };
+          editor.txt.html(res.data.data[0].content_html);
         });
     },
   },

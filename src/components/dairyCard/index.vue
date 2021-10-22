@@ -80,17 +80,11 @@ export default {
       padding: 1%;
       border-top: 1px solid #d1b6e1;
       border-bottom: 1px solid #d1b6e1;
-      .text-content {
-        width: 80%;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 6;
-        overflow: hidden;
-      }
-      // .details-img {
-      //   width: 80%;
-      //   height: 50%;
-      // }
+      max-height: 44vh;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 12;
+      overflow: hidden;
     }
     .card-footer {
       display: flex;
