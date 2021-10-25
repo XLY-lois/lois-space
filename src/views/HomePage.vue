@@ -9,7 +9,12 @@
       </div>
     </div>
     <div class="body">
-      <dairyCard v-for="item in noteList" :key="item.id" :noteObj="item">
+      <dairyCard
+        v-for="item in noteList"
+        :key="item.id"
+        :noteObj="item"
+        @changeShowStatus="changeShowStatus"
+      >
       </dairyCard>
       <v-btn class="to-top-btn" fab dark color="#D1B6E1" @click="toTopFun()">
         <img class="to-top-icon" :src="toTop" alt="" />
@@ -82,7 +87,10 @@ export default {
       this.$router.push(url);
     },
     async getArticleList() {
-      const res = await this.$http.get("/api/queryAllArticles").then((res) => {
+      let res = await this.$http.get("/api/queryAllArticles").then((res) => {
+        res.data.data.forEach((element) => {
+          element.isFold = true;
+        });
         this.noteList = res.data.data;
       });
     },
@@ -96,8 +104,15 @@ export default {
       this.identityObj = {
         id: "",
         password: "",
-      }
+      };
       this.dialog = false;
+    },
+    changeShowStatus(id) {
+      this.noteList.forEach((ele) => {
+        if(ele.id == id) {
+          ele.isFold = !ele.isFold
+        }
+      });
     },
   },
 };

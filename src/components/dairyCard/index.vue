@@ -6,19 +6,24 @@
           <span class="title">{{ noteObj.title }}</span>
           <span class="date">{{ noteObj.create_time }}</span>
         </div>
-        <v-btn color="#9c64a7" width="8vw" @click="showDetails()"> MORE </v-btn>
       </div>
       <div class="card-content">
-        <div v-html="noteObj.content_html"></div>
+        <div
+          class="html-content"
+          :class="noteObj.isFold ? 'fold' : ''"
+          v-html="noteObj.content_html"
+        ></div>
+        <div class="fold-open" @click="changeShowStatus(noteObj.id)">
+          <div v-show="noteObj.isFold">展开</div>
+          <div v-show="!noteObj.isFold">收起</div>
+        </div>
       </div>
     </div>
     <div class="card-footer"></div>
-    <noteDetails ref="details" :noteObj="noteObj"></noteDetails>
   </div>
 </template>
 
 <script>
-import noteDetails from "../../components/noteDetails";
 import testImg from "../../assets/test.jpg";
 
 export default {
@@ -27,18 +32,21 @@ export default {
     return {
       testImg,
       htmlContent: "",
+      isFold: true,
     };
   },
-  components: {
-    noteDetails,
-  },
+  components: {},
   filters: {},
-  props: ["noteObj"],
+  props: {
+    noteObj: {
+      type: Object,
+    },
+  },
   mounted() {},
   methods: {
-    showDetails() {
-      this.$refs.details.showOverLay();
-      console.log("show");
+    changeShowStatus(id) {
+      this.$emit("changeShowStatus", id);
+      // console.log(this.noteObj);
     },
   },
 };
@@ -46,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 80%;
+  width: 60%;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -61,6 +69,8 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #d1b6e17a;
+      padding: 0 1vw;
       .title-box {
         display: flex;
         align-items: baseline;
@@ -77,14 +87,27 @@ export default {
       }
     }
     .card-content {
-      padding: 1%;
       border-top: 1px solid #d1b6e1;
       border-bottom: 1px solid #d1b6e1;
-      max-height: 44vh;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 12;
-      overflow: hidden;
+      .fold {
+        max-height: 44vh;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 12;
+        overflow: hidden;
+      }
+      .html-content {
+        padding: 2vh 1vw 0 1vw;
+      }
+      .fold-open {
+        margin: 1% 0;
+        display: flex;
+        justify-content: flex-end;
+        div {
+          margin: 0 1vw;
+          cursor: pointer;
+        }
+      }
     }
     .card-footer {
       display: flex;

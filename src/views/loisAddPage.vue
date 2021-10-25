@@ -30,6 +30,7 @@ export default {
   data() {
     return {
       articleObj: {
+        id: 0,
         titleContent: "",
         time: "",
         htmlContent: "",
@@ -44,7 +45,6 @@ export default {
     editor.create();
     if (this.$route.query.id) {
       this.queryArticleById(this.$route.query.id, editor);
-      console.log(this.articleObj);
     }
     this.editor = editor;
   },
@@ -65,13 +65,17 @@ export default {
         const res = await this.$http
           .post("/api/editArticleById", this.articleObj)
           .then((res) => {
-            console.log(res);
+            if (res.status == 200) {
+              this.$router.push("/admin");
+            }
           });
       } else {
         const res = await this.$http
           .post("/api/addArticle", this.articleObj)
           .then((res) => {
-            console.log(res);
+            if (res.status == 200) {
+              this.$router.push("/admin");
+            }
           });
       }
     },
@@ -81,9 +85,11 @@ export default {
           params: { id },
         })
         .then((res) => {
+          let result = res.data.data[0];
           this.articleObj = {
             ...this.articleObj,
-            titleContent: res.data.data[0].title,
+            titleContent: result.title,
+            id: result.id,
           };
           editor.txt.html(res.data.data[0].content_html);
         });

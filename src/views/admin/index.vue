@@ -50,9 +50,8 @@ export default {
       selected: [], //选择的文章列表
       headers: [
         { text: "标题", value: "title" },
-        // { text: "文本内容", value: "content_text" },
-        // { text: "html内容", value: "content_html" },
         { text: "创建时间", value: "create_time" },
+        { text: "最后一次修改时间", value: "last_edit_time" },
       ],
       desserts: [], //文章列表
       backIcon,
@@ -107,6 +106,7 @@ export default {
     display: flex;
     justify-content: flex-end;
     .back-icon {
+      cursor: pointer;
       width: 1.5vw;
       height: 1.5vw;
       margin: 1vh 1vw;
