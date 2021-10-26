@@ -12,8 +12,16 @@
           class="html-content"
           :class="noteObj.isFold ? 'fold' : ''"
           v-html="noteObj.content_html"
-        ></div>
-        <div class="fold-open" @click="changeShowStatus(noteObj.id)">
+          ref="article"
+        >
+        </div>
+        <div v-show="showComment">
+          留言
+        </div>
+        <div
+          class="fold-open"
+          @click="changeShowStatus(noteObj.id)"
+        >
           <div v-show="noteObj.isFold">展开</div>
           <div v-show="!noteObj.isFold">收起</div>
         </div>
@@ -33,6 +41,7 @@ export default {
       testImg,
       htmlContent: "",
       isFold: true,
+      showComment: false,
     };
   },
   components: {},
@@ -42,11 +51,15 @@ export default {
       type: Object,
     },
   },
-  mounted() {},
+  mounted() {
+    console.log(this.$refs.article.offsetHeight)
+    // if (this.$refs.article.offsetHeight >= 100) {
+    //   this.showFold = true;
+    // }
+  },
   methods: {
     changeShowStatus(id) {
       this.$emit("changeShowStatus", id);
-      // console.log(this.noteObj);
     },
   },
 };
@@ -90,10 +103,10 @@ export default {
       border-top: 1px solid #d1b6e1;
       border-bottom: 1px solid #d1b6e1;
       .fold {
-        max-height: 44vh;
+        // max-height: 45vh;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 12;
+        -webkit-line-clamp:10;
         overflow: hidden;
       }
       .html-content {
