@@ -8,7 +8,8 @@ export default new Vuex.Store({
     visitorInfo:{
       name:'',
       visitedTime:'',
-      ip:''
+      ip:'',
+      email:''
     }
   },
   mutations: {

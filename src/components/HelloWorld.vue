@@ -3,17 +3,6 @@
     <div class="wel-container">
       <div class="logo"><img :src="logo" alt="" /></div>
       <div class="loading">Welcome to Lois'Space</div>
-      <div class="visitor-name-input">
-        <v-text-field
-          background-color="rgba(234,216,244,0.51)"
-          color="rgba(234,216,244)"
-          label="Your name"
-          v-model.trim="visitorName"
-          :rules="rules"
-          hide-details="auto"
-        >
-        </v-text-field>
-      </div>
       <div class="next-btn" @click="jumpTo('/homepage')">OK →</div>
     </div>
   </div>
@@ -27,7 +16,6 @@ export default {
   data() {
     return {
       logo,
-      visitorName: "",
       rules: [(value) => !!value || "Required."],
     };
   },
@@ -52,22 +40,15 @@ export default {
       });
     },
     jumpTo(url) {
-      if (this.visitorName) {
-        this.$store.commit("SET_VISITOR_INFO", {
-          name: this.visitorName,
-        });
-        this.getVisitor()
-        this.$router.push(url);
-      }
+      this.getVisitor();
+      this.$router.push(url);
     },
     async getVisitor() {
-      const res = await this.$http
-        .get("/api/addVisitor", {
-          params: {
-            name: this.visitorInfo.name
-          },
-        })
-        .then((res) => {});
+      const res = await this.$http.get("/api/addVisitor").then((res) => {
+        this.$store.commit("SET_VISITOR_INFO", {
+          ip: res.data.ip,
+        });
+      });
     },
   },
 };

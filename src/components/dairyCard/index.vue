@@ -13,15 +13,11 @@
           :class="noteObj.isFold ? 'fold' : ''"
           v-html="noteObj.content_html"
           ref="article"
-        >
+        ></div>
+        <div v-show="!noteObj.isFold">
+          <CommentCard :articleId="noteObj.id" ref="comment"></CommentCard>
         </div>
-        <div v-show="showComment">
-          留言
-        </div>
-        <div
-          class="fold-open"
-          @click="changeShowStatus(noteObj.id)"
-        >
+        <div class="fold-open" @click="changeShowStatus(noteObj.id)">
           <div v-show="noteObj.isFold">展开</div>
           <div v-show="!noteObj.isFold">收起</div>
         </div>
@@ -32,33 +28,27 @@
 </template>
 
 <script>
-import testImg from "../../assets/test.jpg";
-
+import CommentCard from '../commentCard'
 export default {
   name: "index",
   data() {
     return {
-      testImg,
       htmlContent: "",
-      isFold: true,
-      showComment: false,
     };
   },
-  components: {},
+  components: {
+    CommentCard
+  },
   filters: {},
   props: {
     noteObj: {
       type: Object,
     },
   },
-  mounted() {
-    console.log(this.$refs.article.offsetHeight)
-    // if (this.$refs.article.offsetHeight >= 100) {
-    //   this.showFold = true;
-    // }
-  },
+  mounted() {},
   methods: {
     changeShowStatus(id) {
+      this.$refs.comment.resetValidation()
       this.$emit("changeShowStatus", id);
     },
   },
@@ -80,13 +70,14 @@ export default {
     overflow: hidden;
     .card-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       background: #d1b6e17a;
       padding: 0 1vw;
       .title-box {
+        width: 100%;
         display: flex;
         align-items: baseline;
+        justify-content: space-between;
         .title {
           font-size: 36px;
           font-weight: 1000;
@@ -106,7 +97,7 @@ export default {
         // max-height: 45vh;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp:10;
+        -webkit-line-clamp: 10;
         overflow: hidden;
       }
       .html-content {
@@ -121,6 +112,7 @@ export default {
           cursor: pointer;
         }
       }
+     
     }
     .card-footer {
       display: flex;
