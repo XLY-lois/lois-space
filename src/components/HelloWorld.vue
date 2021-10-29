@@ -3,18 +3,34 @@
     <div class="wel-container">
       <div class="logo"><img :src="logo" alt="" /></div>
       <div class="loading">Welcome to Lois'Space</div>
-      <div class="visitor-name-input">
+      <v-form
+        class="visitor-name-input"
+        ref="form"
+        v-model="valid"
+        lazy-validation
+      >
         <v-text-field
+          class="input"
           background-color="rgba(234,216,244,0.51)"
           color="rgba(234,216,244)"
           label="Your name"
           v-model.trim="visitorName"
-          :rules="rules"
+          :rules="[rules.required]"
           hide-details="auto"
         >
         </v-text-field>
-      </div>
-      <div class="next-btn" @click="jumpTo('/homepage')">OK →</div>
+        <v-text-field
+          class="input"
+          background-color="rgba(234,216,244,0.51)"
+          color="rgba(234,216,244)"
+          label="Your email"
+          v-model.trim="visitorEmail"
+          :rules="[rules.required, rules.email]"
+          hide-details="auto"
+        >
+        </v-text-field>
+      </v-form>
+      <div class="next-btn" @click="submit()">OK →</div>
     </div>
   </div>
 </template>
@@ -26,9 +42,19 @@ export default {
   name: "HelloWorld",
   data() {
     return {
+      valid: true,
       logo,
       visitorName: "",
-      rules: [(value) => !!value || "Required."],
+      visitorEmail: "",
+      ip: "",
+      rules: {
+        required: (value) => !!value || "Required.",
+        email: (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "Invalid e-mail.";
+        },
+      },
     };
   },
   mounted() {
@@ -51,23 +77,40 @@ export default {
         loading.append(span);
       });
     },
+    submit() {
+      this.validate();
+      this.getVisitor();
+      this.jumpTo("/homePage");
+    },
     jumpTo(url) {
-      if (this.visitorName) {
-        this.$store.commit("SET_VISITOR_INFO", {
-          name: this.visitorName,
-        });
-        this.getVisitor()
-        this.$router.push(url);
-      }
+      this.$store.commit("SET_VISITOR_INFO", {
+        name: this.visitorName,
+        email: this.visitorEmail,
+        ip: this.ip
+      });
+      console.log(this.visitorInfo)
+      // this.$router.push(url);
     },
     async getVisitor() {
       const res = await this.$http
         .get("/api/addVisitor", {
           params: {
-            name: this.visitorInfo.name
+            name: this.visitorName,
+            email: this.visitorEmail,
           },
         })
-        .then((res) => {});
+        .then((res) => {
+          this.ip = res.data.ip;
+        });
+    },
+    validate() {
+      this.$refs.form.validate();
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation();
+    },
+    reset() {
+      this.$refs.form.reset();
     },
   },
 };
@@ -108,6 +151,10 @@ export default {
     }
     .visitor-name-input {
       margin-top: 5vh;
+      display: flex;
+      .input {
+        margin: 0 1vw;
+      }
     }
     .next-btn {
       cursor: pointer;

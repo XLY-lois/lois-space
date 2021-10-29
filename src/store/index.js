@@ -8,6 +8,7 @@ export default new Vuex.Store({
     visitorInfo:{
       name:'',
       visitedTime:'',
+      email:'',
       ip:''
     }
   },

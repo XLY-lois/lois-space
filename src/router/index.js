@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -13,10 +14,15 @@ const routes = [
   {
     path: '/homepage',
     name: 'HomePage',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/HomePage.vue')
+    component: () => import('../views/HomePage.vue'),
+    beforeEnter: (to, from, next) => {
+      let info = store.state.visitorInfo
+      if(!info.name) {
+        next({ name: 'Home' })
+      }else{
+        next()
+      }
+    }
   },
   {
     path: '/loisAddPage',
