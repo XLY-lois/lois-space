@@ -80,16 +80,9 @@ export default {
     submit() {
       this.validate();
       this.getVisitor();
-      this.jumpTo("/homePage");
     },
     jumpTo(url) {
-      this.$store.commit("SET_VISITOR_INFO", {
-        name: this.visitorName,
-        email: this.visitorEmail,
-        ip: this.ip
-      });
-      console.log(this.visitorInfo)
-      // this.$router.push(url);
+      this.$router.push(url);
     },
     async getVisitor() {
       const res = await this.$http
@@ -101,6 +94,12 @@ export default {
         })
         .then((res) => {
           this.ip = res.data.ip;
+          this.$store.commit("SET_VISITOR_INFO", {
+            name: this.visitorName,
+            email: this.visitorEmail,
+            ip: this.ip,
+          });
+          this.jumpTo("/homePage");
         });
     },
     validate() {

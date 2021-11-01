@@ -57,6 +57,8 @@ import logo from "../assets/loisBlack.png";
 import toTop from "../assets/toTop.png";
 import dairyCard from "../components/dairyCard";
 import glassCard from "../components/glassCard";
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -76,8 +78,14 @@ export default {
     dairyCard,
     glassCard,
   },
+  computed: {
+    ...mapState({
+      visitorInfo: (state) => state.visitorInfo,
+    }),
+  },
   mounted() {
     this.getArticleList();
+    console.log(this.visitorInfo)
   },
   methods: {
     toTopFun() {
@@ -109,8 +117,8 @@ export default {
     },
     changeShowStatus(id) {
       this.noteList.forEach((ele) => {
-        if(ele.id == id) {
-          ele.isFold = !ele.isFold
+        if (ele.id == id) {
+          ele.isFold = !ele.isFold;
         }
       });
     },
