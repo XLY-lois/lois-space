@@ -13,7 +13,15 @@
           :class="noteObj.isFold ? 'fold' : ''"
           v-html="noteObj.content_html"
         ></div>
-        <CommentCard :articleId="noteObj.id"></CommentCard>
+        <CommentList
+          v-if="!noteObj.isFold"
+          :articleId="noteObj.id"
+        ></CommentList>
+        <CommentCard
+          v-show="!noteObj.isFold"
+          :articleId="noteObj.id"
+        ></CommentCard>
+
         <div class="fold-open" @click="changeShowStatus(noteObj.id)">
           <div v-show="noteObj.isFold">展开</div>
           <div v-show="!noteObj.isFold">收起</div>
@@ -27,6 +35,7 @@
 <script>
 import testImg from "../../assets/test.jpg";
 import CommentCard from "../commentCard";
+import CommentList from "../commentList";
 export default {
   name: "index",
   data() {
@@ -38,6 +47,7 @@ export default {
   },
   components: {
     CommentCard,
+    CommentList,
   },
   filters: {},
   props: {

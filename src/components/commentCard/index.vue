@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import Bus from "../../bus"
 import { mapState } from "vuex";
 export default {
   name: "index",
@@ -40,32 +41,32 @@ export default {
   },
   methods: {
     async submitComment() {
-      console.log(this.visitorInfo);
+      if (this.commentObj.content) {
         const res = await this.$http
           .post("/api/addCommentByArticleId", {
-              ...this.commentObj,
-              name:this.visitorInfo.name,
-              email:this.visitorInfo.email
+            ...this.commentObj,
+            name: this.visitorInfo.name,
+            email: this.visitorInfo.email,
           })
           .then((res) => {
-            console.log(res);
+            alert('操作成功')
+            this.commentObj.content = ''
           });
+          Bus.$emit('refreshCommentsList')
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.visitor-info {
-  display: flex;
-  .info-input {
-    margin: 0 1vw;
-  }
-}
 .operation {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 1vh 1vw;
+  padding: 1vh 0;
+}
+.v-text-field__details {
+  padding: 0;
 }
 </style>
