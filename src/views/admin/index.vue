@@ -62,12 +62,14 @@ export default {
   },
   methods: {
     jumpTo(url, id) {
-      this.$router.push({
-        path: url,
-        query: {
-          id
-        },
-      });
+      if (id) {
+        this.$router.push({
+          path: url,
+          query: {
+            id,
+          },
+        });
+      }
     },
     async getArticleList() {
       const res = await this.$http.get("/api/queryAllArticles").then((res) => {

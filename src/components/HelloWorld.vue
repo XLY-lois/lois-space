@@ -59,6 +59,7 @@ export default {
   },
   mounted() {
     this.animation();
+    this.checkStorage();
   },
   computed: {
     ...mapState({
@@ -79,6 +80,7 @@ export default {
     },
     submit() {
       this.validate();
+      this.setStorage()
       this.getVisitor();
     },
     jumpTo(url) {
@@ -101,6 +103,23 @@ export default {
           });
           this.jumpTo("/homePage");
         });
+    },
+    checkStorage() {
+      let storage = window.localStorage;
+      if (storage.visitorName || storage.visitorEmail) {
+        this.visitorName = storage.visitorName
+        this.visitorEmail = storage.visitorEmail
+      }
+
+      // storage.setItem("c",3);
+
+      // storage.removeItem("c");
+    },
+    setStorage() {
+      let storage = window.localStorage;
+      storage.setItem("visitorName", this.visitorName);
+      storage.setItem("visitorEmail", this.visitorEmail);
+      console.log(storage);
     },
     validate() {
       this.$refs.form.validate();

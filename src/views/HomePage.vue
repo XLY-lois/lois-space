@@ -16,6 +16,7 @@
         @changeShowStatus="changeShowStatus"
       >
       </dairyCard>
+      <WeatherCard class="weather-card"></WeatherCard>
       <v-btn class="to-top-btn" fab dark color="#D1B6E1" @click="toTopFun()">
         <img class="to-top-icon" :src="toTop" alt="" />
       </v-btn>
@@ -58,6 +59,7 @@ import toTop from "../assets/toTop.png";
 import dairyCard from "../components/dairyCard";
 import glassCard from "../components/glassCard";
 import { mapState } from "vuex";
+import WeatherCard from "../components/weather";
 
 export default {
   data() {
@@ -77,6 +79,7 @@ export default {
   components: {
     dairyCard,
     glassCard,
+    WeatherCard,
   },
   computed: {
     ...mapState({
@@ -85,7 +88,6 @@ export default {
   },
   mounted() {
     this.getArticleList();
-    console.log(this.visitorInfo)
   },
   methods: {
     toTopFun() {
@@ -175,6 +177,12 @@ export default {
         width: 4vh;
         height: 4vh;
       }
+    }
+    .weather-card {
+      width: 16vw;
+      position: absolute;
+      top: 13vh;
+      left: 3vh;
     }
   }
 }

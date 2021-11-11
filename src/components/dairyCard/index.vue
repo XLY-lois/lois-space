@@ -82,6 +82,7 @@ export default {
       justify-content: space-between;
       align-items: center;
       background: #d1b6e17a;
+      height: 4vh;
       padding: 0 1vw;
       .title-box {
         display: flex;

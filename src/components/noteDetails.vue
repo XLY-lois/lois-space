@@ -40,7 +40,6 @@ export default {
   watch: {
     overlay(val) {},
     curPreview(val) {
-      console.log(this.curPreview);
       this.overlay = true;
     },
   },

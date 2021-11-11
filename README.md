@@ -27,3 +27,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 抽离留言框组件，内嵌进文章卡片组件中，获取store中的visitor信息去提交留言的请求
 #### 2021-11-3
 - 对单篇文章留言功能完成
+#### 2021-11-11
+- 修复 不填写邮箱也能进入
+- 新增 welcome页记住用户功能
+- 新增 天气组件 可通过当前的ip所在地查询天气
