@@ -5,7 +5,7 @@
         class="back-icon"
         :src="backIcon"
         alt=""
-        @click="jumpTo('homePage')"
+        @click="jumpTo('back', 'homePage')"
       />
     </div>
     <div class="article-list">
@@ -13,14 +13,18 @@
         <v-btn class="btn" @click="delArticleById" color="#ffb6b9" dark>
           删除
         </v-btn>
-        <v-btn class="btn" color="#bbded6" dark @click="jumpTo('/loisAddPage')"
+        <v-btn
+          class="btn"
+          color="#bbded6"
+          dark
+          @click="jumpTo('add', '/loisAddPage')"
           >新增</v-btn
         >
         <v-btn
           class="btn"
           color="#8ac6d1"
           dark
-          @click="jumpTo('/loisAddPage', selected[0].id)"
+          @click="jumpTo('edit', '/loisAddPage', selected[0].id)"
           >编辑</v-btn
         >
       </div>
@@ -61,14 +65,18 @@ export default {
     this.getArticleList();
   },
   methods: {
-    jumpTo(url, id) {
-      if (id) {
-        this.$router.push({
-          path: url,
-          query: {
-            id,
-          },
-        });
+    jumpTo(type, url, id) {
+      if (type === "edit") { //TODO 处理不选择内容但点击编辑的情况
+        if (id) {
+          this.$router.push({
+            path: url,
+            query: {
+              id,
+            },
+          });
+        }
+      } else {
+        this.$router.push(url);
       }
     },
     async getArticleList() {
