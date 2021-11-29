@@ -5,7 +5,7 @@
     </div>
     <div class="weather-body">
       <div class="tempera">{{ this.weatherInfo.realtime.temperature }}℃</div>
-      <img :src="icon" alt="">
+      <img :src="icon" alt="" />
       <div class="weather-info">
         {{ this.weatherInfo.realtime.info }}
       </div>
@@ -39,7 +39,7 @@ export default {
           aqi: "",
         },
       },
-      icon: ''
+      icon: "",
     };
   },
   computed: {
@@ -54,28 +54,29 @@ export default {
     },
   },
   mounted() {
-    this.getWeatherByIp(this.visitorInfo.ip)
+    this.getWeatherByIp(this.visitorInfo.ip);
     // this.getWeatherIcon()
   },
   methods: {
-    async getWeatherByIp(ip){
+    async getWeatherByIp(ip) {
       const res = await this.$http
-      .get("api/getWeatherByIp",{
-        params: {
+        .get("api/getWeatherByIp", {
+          params: {
             ip,
           },
-      })
-      .then(res => {
-        let data = JSON.parse(res.data.data)
-        this.weatherInfo = data.result;
-      })
+        })
+        .then((res) => {
+          let data = JSON.parse(res.data.data);
+          this.weatherInfo = data.result;
+        });
     },
-    getWeatherIcon(info){ //TODO对应图标
-      let url = '../../assets/weatherIcon/baoxue.png'
-      let url2 = url+''
-      this.icon = require(`${url}`)
-      console.log(this.icon)
-    }
+    getWeatherIcon(info) {
+      //TODO对应图标
+      let url = "../../assets/weatherIcon/baoxue.png";
+      let url2 = url + "";
+      this.icon = require(`${url}`);
+      console.log(this.icon);
+    },
   },
 };
 </script>
@@ -85,10 +86,13 @@ export default {
   height: 20vh;
   width: 100%;
   color: #2e294e;
+  padding: 2vh;
   .weather-header {
     width: 100%;
     height: 4vh;
     line-height: 4vh;
+    font-size: 20px;
+    font-weight: 1000;
     background: #d1b6e17a;
     border-bottom: #d1b6e1 1px solid;
     padding: 0 1vw;

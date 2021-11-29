@@ -42,6 +42,7 @@ export default {
   mounted() {
     this.articleObj.time = this.getDate(new Date());
     const editor = new E("#div1");
+    editor.config.uploadImgServer = 'api/uploadImg'
     editor.create();
     if (this.$route.query.id) {
       this.queryArticleById(this.$route.query.id, editor);

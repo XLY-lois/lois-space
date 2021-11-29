@@ -3,8 +3,8 @@
     <div class="header">
       <img @click="jumpTo('/')" class="logo" :src="logo" alt="" />
       <div class="right-top">
-        <span class="leaving-message">留言</span>
-        <span class="about">关于</span>
+        <!-- <span class="leaving-message">留言</span> -->
+        <!-- <span class="about">关于</span> -->
         <span @click.stop="dialog = true">后台</span>
       </div>
     </div>
@@ -17,6 +17,8 @@
       >
       </dairyCard>
       <WeatherCard class="weather-card"></WeatherCard>
+      <!-- <AboutMe class="about-me"></AboutMe>  -->
+      <!-- TODO 关于我待开发 -->
       <v-btn class="to-top-btn" fab dark color="#D1B6E1" @click="toTopFun()">
         <img class="to-top-icon" :src="toTop" alt="" />
       </v-btn>
@@ -60,6 +62,7 @@ import dairyCard from "../components/dairyCard";
 import glassCard from "../components/glassCard";
 import { mapState } from "vuex";
 import WeatherCard from "../components/weather";
+// import AboutMe from "../components/aboutMe"
 
 export default {
   data() {
@@ -80,6 +83,7 @@ export default {
     dairyCard,
     glassCard,
     WeatherCard,
+    // AboutMe
   },
   computed: {
     ...mapState({
@@ -150,7 +154,7 @@ export default {
     }
     .right-top {
       margin-right: 1vw;
-      width: 12vw;
+      width: 4vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -181,8 +185,14 @@ export default {
     .weather-card {
       width: 16vw;
       position: absolute;
-      top: 13vh;
+      top: 11vh;
       left: 3vh;
+    }
+    .about-me {
+      width: 16vw;
+      position: absolute;
+      top: 13vh;
+      right: 3vh;
     }
   }
 }
