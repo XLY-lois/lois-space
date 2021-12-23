@@ -66,7 +66,6 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 60%;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -74,22 +73,24 @@ export default {
   .card {
     width: 100%;
     padding: 2vh;
-    margin-top: 3vh;
+    // margin-top: 3vh;
     margin-bottom: 3vh;
     overflow: hidden;
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 10px;
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #d1b6e17a;
+      // background: #d1b6e17a;
       height: 4vh;
       padding: 0 1vw;
       .title-box {
         display: flex;
         align-items: baseline;
         .title {
-          font-size: 36px;
-          font-weight: 1000;
+          font-size: 80%;
+          font-weight: 500;
         }
         .date {
           font-family: sans-serif;

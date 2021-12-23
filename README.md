@@ -31,3 +31,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 修复 不填写邮箱也能进入
 - 新增 welcome页记住用户功能
 - 新增 天气组件 可通过当前的ip所在地查询天气
+#### 2021-11-29
+- 文章图片上传，回显功能  
+### TODO LIST
+- 文章新增编辑页面的标题文本框太短了 显示不完全
+- AboutMe 做个组件放在首页算了

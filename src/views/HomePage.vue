@@ -3,25 +3,30 @@
     <div class="header">
       <img @click="jumpTo('/')" class="logo" :src="logo" alt="" />
       <div class="right-top">
-        <!-- <span class="leaving-message">留言</span> -->
-        <!-- <span class="about">关于</span> -->
         <span @click.stop="dialog = true">后台</span>
       </div>
     </div>
     <div class="body">
-      <dairyCard
-        v-for="item in noteList"
-        :key="item.id"
-        :noteObj="item"
-        @changeShowStatus="changeShowStatus"
-      >
-      </dairyCard>
-      <WeatherCard class="weather-card"></WeatherCard>
-      <!-- <AboutMe class="about-me"></AboutMe>  -->
+      <div class="main-box">
+        <MenuBox></MenuBox>
+        <div class="content-box">
+          <dairyCard
+            v-for="item in noteList"
+            :key="item.id"
+            :noteObj="item"
+            @changeShowStatus="changeShowStatus"
+          >
+          </dairyCard>
+        </div>
+      </div>
+
+      <!-- <WeatherCard class="weather-card"></WeatherCard> -->
+      <!-- <AboutMe class="about-me"></AboutMe> -->
       <!-- TODO 关于我待开发 -->
       <v-btn class="to-top-btn" fab dark color="#D1B6E1" @click="toTopFun()">
         <img class="to-top-icon" :src="toTop" alt="" />
       </v-btn>
+      <div class="show-menu-btn"></div>
     </div>
     <v-dialog
       v-model="dialog"
@@ -59,10 +64,10 @@
 import logo from "../assets/loisBlack.png";
 import toTop from "../assets/toTop.png";
 import dairyCard from "../components/dairyCard";
-import glassCard from "../components/glassCard";
 import { mapState } from "vuex";
 import WeatherCard from "../components/weather";
-// import AboutMe from "../components/aboutMe"
+import AboutMe from "../components/aboutMe";
+import MenuBox from "../components/menuBox";
 
 export default {
   data() {
@@ -81,9 +86,8 @@ export default {
   },
   components: {
     dairyCard,
-    glassCard,
     WeatherCard,
-    // AboutMe
+    MenuBox,
   },
   computed: {
     ...mapState({
@@ -134,7 +138,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  background-color: #fff;
+  background-color: #d8d8d8;
   margin: 0;
   justify-content: start;
   padding: 0;
@@ -142,11 +146,11 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 8vh;
+    height: 6vh;
     width: 100%;
     padding: 0;
     margin: 0;
-    background: #9dc8c8;
+    background: rgba(255, 255, 255, 0.7);
     .logo {
       margin: 1rem;
       height: 6vh;
@@ -161,7 +165,7 @@ export default {
       font-family: sans-serif;
       color: #2e294e;
       font-weight: 1000;
-      font-size: 14px;
+      font-size: 80%;
       letter-spacing: 0.4vw;
       span {
         cursor: pointer;
@@ -173,6 +177,15 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    .main-box {
+      width: 70%;
+      display: flex;
+      .content-box {
+        flex: 1;
+        margin: 0 2%;
+        margin-top: 4vh;
+      }
+    }
     .to-top-btn {
       position: fixed;
       bottom: 3vh;
@@ -181,6 +194,14 @@ export default {
         width: 4vh;
         height: 4vh;
       }
+    }
+    .show-menu-btn {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      background-color: pink;
+      top: 12vh;
+      left: 3vh;
     }
     .weather-card {
       width: 16vw;
@@ -191,8 +212,9 @@ export default {
     .about-me {
       width: 16vw;
       position: absolute;
-      top: 13vh;
+      top: 11vh;
       right: 3vh;
+      padding: 2vh;
     }
   }
 }

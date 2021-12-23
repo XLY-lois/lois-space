@@ -1,15 +1,25 @@
 <template>
   <div class="about-container">
     <div class="about-header">关于</div>
-    <div class="about-body">body</div>
+    <div class="about-body">
+      <img class="avatar-img" :src="avatar" alt="" />
+      <div class="info-container">
+        <div>
+          <span>乱七八糟说点啥。。。</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import avatar from "../../../public/avatar.jpg"
 export default {
   name: "index",
   data() {
-    return {};
+    return {
+      avatar
+    };
   },
   props: {},
   methods: {},
@@ -18,7 +28,6 @@ export default {
 
 <style lang="scss" scoped>
 .about-container {
-  height: 20vh;
   width: 100%;
   color: #2e294e;
   .about-header {
@@ -33,6 +42,19 @@ export default {
   }
   .about-body {
     padding: 0 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .avatar-img {
+      margin-top: 1vh;
+      width: 10vw;
+      height: 10vw;
+      background-color: pink;
+    }
+    .info-container {
+      text-align: left;
+    }
   }
 }
 .about-container:hover {
