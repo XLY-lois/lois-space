@@ -15,15 +15,15 @@ const routes = [
     path: '/homepage',
     name: 'HomePage',
     component: () => import('../views/HomePage.vue'),
-    beforeEnter: (to, from, next) => { //路由权限控制 记得解除注释
-      let info = store.state.visitorInfo
-      console.log(info)
-      if (info.name && info.email) {
-        next()
-      } else {
-        next({ name: 'Home' })
-      }
-    }
+    // beforeEnter: (to, from, next) => { //路由权限控制 记得解除注释
+    //   let info = store.state.visitorInfo
+    //   console.log(info)
+    //   if (info.name && info.email) {
+    //     next()
+    //   } else {
+    //     next({ name: 'Home' })
+    //   }
+    // }
   },
   {
     path: '/loisAddPage',
@@ -36,7 +36,7 @@ const routes = [
     component: () => import('../views/admin/index.vue')
   },
   {
-    path: '/notFound',
+    path: '*',
     name: 'NotFound',
     component: () => import('../views/notFound.vue')
   },

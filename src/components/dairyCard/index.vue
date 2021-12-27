@@ -1,9 +1,18 @@
 <template>
-  <div class="container">
+  <div class="card-container">
     <div class="card">
       <div class="card-header">
         <div class="title-box">
-          <span class="title">{{ noteObj.title }}</span>
+          <div class="title">
+            <span>
+              {{ noteObj.title }}
+            </span>
+            <span class="article-tags">
+              <v-chip close-icon="mdi-close-outline" color="#d1b8d5" label small>
+                111111
+              </v-chip>
+            </span>
+          </div>
           <span class="date">{{ noteObj.create_time }}</span>
         </div>
       </div>
@@ -65,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.card-container {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -76,7 +85,7 @@ export default {
     // margin-top: 3vh;
     margin-bottom: 3vh;
     overflow: hidden;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     .card-header {
       display: flex;
@@ -87,10 +96,19 @@ export default {
       padding: 0 1vw;
       .title-box {
         display: flex;
-        align-items: baseline;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
         .title {
-          font-size: 80%;
+          display: flex;
+          align-items: center;
+          font-size: 80vw;
           font-weight: 500;
+          .article-tags {
+            margin-left: 1vw;
+            display: flex;
+            align-items: center;
+          }
         }
         .date {
           font-family: sans-serif;

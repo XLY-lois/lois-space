@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" ref="container">
     <div class="header">
       <img @click="jumpTo('/')" class="logo" :src="logo" alt="" />
       <div class="right-top">
@@ -8,7 +8,7 @@
     </div>
     <div class="body">
       <div class="main-box">
-        <MenuBox></MenuBox>
+        <MenuBox ref="menu" :menuStatus.sync="menuStatus"></MenuBox>
         <div class="content-box">
           <dairyCard
             v-for="item in noteList"
@@ -23,10 +23,22 @@
       <!-- <WeatherCard class="weather-card"></WeatherCard> -->
       <!-- <AboutMe class="about-me"></AboutMe> -->
       <!-- TODO 关于我待开发 -->
-      <v-btn class="to-top-btn" fab dark color="#D1B6E1" @click="toTopFun()">
+      <v-btn
+        class="to-top-btn"
+        fab
+        dark
+        color="rgb(255 255 255 / 0.8)"
+        @click="toTopFun()"
+      >
         <img class="to-top-icon" :src="toTop" alt="" />
       </v-btn>
-      <div class="show-menu-btn"></div>
+      <img
+        class="show-menu-btn"
+        @click.stop="showMenu"
+        v-show="!menuStatus"
+        :src="showMenuIcon"
+        alt=""
+      />
     </div>
     <v-dialog
       v-model="dialog"
@@ -63,6 +75,7 @@
 <script>
 import logo from "../assets/loisBlack.png";
 import toTop from "../assets/toTop.png";
+import showMenuIcon from "../assets/open.png";
 import dairyCard from "../components/dairyCard";
 import { mapState } from "vuex";
 import WeatherCard from "../components/weather";
@@ -74,6 +87,7 @@ export default {
     return {
       logo,
       toTop,
+      showMenuIcon,
       noteList: [],
       curPreview: {},
       dialog: false,
@@ -82,6 +96,7 @@ export default {
         password: "",
       },
       rules: [(value) => !!value || "Required."],
+      menuStatus: true, //菜单是否展开
     };
   },
   components: {
@@ -94,8 +109,10 @@ export default {
       visitorInfo: (state) => state.visitorInfo,
     }),
   },
+  watch: {},
   mounted() {
     this.getArticleList();
+    this.initBgImg()
   },
   methods: {
     toTopFun() {
@@ -132,13 +149,39 @@ export default {
         }
       });
     },
+    showMenu() {
+      this.$refs.menu.showMenu();
+    },
+    randomNum(minNum, maxNum) {
+      //生成 X-Y的随机数
+      switch (arguments.length) {
+        case 1:
+          return parseInt(Math.random() * minNum + 1, 10);
+          break;
+        case 2:
+          return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+          break;
+        default:
+          return 0;
+          break;
+      }
+    },
+    initBgImg() {
+      let randomNum = this.randomNum(1, 6);
+      let img = require(`./../assets/bgImg/bg${randomNum}.jpg`);
+      this.$refs.container.style.backgroundImage = `url(${img})`;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+$bgUrl: "./../assets/bgImg/bg1.jpg";
+
 .container {
-  background-color: #d8d8d8;
+  background-repeat: repeat-y;
+  background-size: 100vw;
+  background-position: center 0;
   margin: 0;
   justify-content: start;
   padding: 0;
@@ -199,9 +242,9 @@ export default {
       position: fixed;
       width: 30px;
       height: 30px;
-      background-color: pink;
-      top: 12vh;
-      left: 3vh;
+      top: 10vh;
+      left: 10vw;
+      cursor: pointer;
     }
     .weather-card {
       width: 16vw;
