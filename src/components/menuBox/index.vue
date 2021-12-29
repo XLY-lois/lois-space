@@ -5,7 +5,8 @@
     </div>
     <div class="menu-body">
       <v-treeview
-        :items="items"
+        :items="menuList"
+        item-text="class_name"
         activatable
         hoverable
         rounded
@@ -25,60 +26,28 @@ export default {
     return {
       menuClass: [], //菜单样式
       foldIcon,
-      items: [
-        {
-          id: 1,
-          name: "Applications :",
-          children: [
-            { id: 2, name: "Calendar : app" },
-            { id: 3, name: "Chrome : app" },
-            { id: 4, name: "Webstorm : app" },
-          ],
-        },
-        {
-          id: 5,
-          name: "Documents :",
-          children: [
-            {
-              id: 6,
-              name: "vuetify :",
-              children: [
-                {
-                  id: 7,
-                  name: "src :",
-                  children: [
-                    { id: 8, name: "index : ts" },
-                    { id: 9, name: "bootstrap : ts" },
-                  ],
-                },
-              ],
-            },
-            {
-              id: 10,
-              name: "material2 :",
-              children: [
-                {
-                  id: 11,
-                  name: "src :",
-                  children: [
-                    { id: 12, name: "v-btn : ts" },
-                    { id: 13, name: "v-card : ts" },
-                    { id: 14, name: "v-window : ts" },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-      active:[], // 当前活动的菜单id
+      menuList: [],
+      active: [], // 当前活动的菜单id
     };
   },
-  watch: {},
+  mounted() {
+    this.getMenuList();
+  },
+  watch: {
+    active: {
+      handler(val) {
+        this.$emit("update:curSelectedOption", val[0]-1);
+      },
+      deep: true,
+    },
+  },
   props: {
     menuStatus: {
       type: Boolean,
     },
+    curSelectedOption: {
+      type: Number
+    }
   },
   methods: {
     hideMenu() {
@@ -91,6 +60,14 @@ export default {
     showMenu() {
       this.menuClass = [];
       this.$emit("update:menuStatus", true);
+    },
+    async getMenuList() {
+      let res = await this.$http
+        .get("/api/getClassificationList")
+        .then((res) => {
+          console.log(res.data);
+          this.menuList = res.data;
+        });
     },
   },
 };

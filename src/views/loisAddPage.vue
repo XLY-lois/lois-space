@@ -7,6 +7,7 @@
             v-model.trim="articleObj.titleContent"
             label="title"
             color="#9C64A7"
+            class="title-input"
           >
           </v-text-field>
           <span class="date">{{ articleObj.time }}</span>
@@ -116,10 +117,12 @@ export default {
     margin-top: 3vh;
     margin-bottom: 3vh;
     .card-header {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       .title-box {
+        width: 100%;
         display: flex;
         align-items: baseline;
         .date {

@@ -8,8 +8,14 @@
               {{ noteObj.title }}
             </span>
             <span class="article-tags">
-              <v-chip close-icon="mdi-close-outline" color="#d1b8d5" label small>
-                111111
+              <v-chip
+                close-icon="mdi-close-outline"
+                :color="noteObj.color_tag"
+                label
+                small
+                text-color="white"
+              >
+                {{ noteObj.name_tag }}
               </v-chip>
             </span>
           </div>
@@ -32,8 +38,18 @@
         ></CommentCard>
 
         <div class="fold-open" @click="changeShowStatus(noteObj.id)">
-          <div v-show="noteObj.isFold">展开</div>
-          <div v-show="!noteObj.isFold">收起</div>
+          <img 
+            class="operation-icon"
+            v-show="noteObj.isFold" 
+            :src="openIcon" 
+            alt="展开" 
+          />
+          <img 
+            class="operation-icon"
+            v-show="!noteObj.isFold" 
+            :src="foldIcon" 
+            alt="收起" 
+          />
         </div>
       </div>
     </div>
@@ -42,14 +58,16 @@
 </template>
 
 <script>
-import testImg from "../../assets/test.jpg";
+import openIcon from "../../assets/openDown.png";
+import foldIcon from "../../assets/foldUp.png";
 import CommentCard from "../commentCard";
 import CommentList from "../commentList";
 export default {
   name: "index",
   data() {
     return {
-      testImg,
+      openIcon,
+      foldIcon,
       htmlContent: "",
       isFold: true,
     };
@@ -135,7 +153,9 @@ export default {
         margin: 1% 0;
         display: flex;
         justify-content: flex-end;
-        div {
+        .operation-icon {
+          width: 1.5vw;
+          height: 1.5vw;
           margin: 0 1vw;
           cursor: pointer;
         }

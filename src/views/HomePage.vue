@@ -8,7 +8,12 @@
     </div>
     <div class="body">
       <div class="main-box">
-        <MenuBox ref="menu" :menuStatus.sync="menuStatus"></MenuBox>
+        <MenuBox 
+          ref="menu" 
+          :menuStatus.sync="menuStatus" 
+          :curSelectedOption.sync="curSelectedOption"
+        >
+        </MenuBox>
         <div class="content-box">
           <dairyCard
             v-for="item in noteList"
@@ -19,10 +24,6 @@
           </dairyCard>
         </div>
       </div>
-
-      <!-- <WeatherCard class="weather-card"></WeatherCard> -->
-      <!-- <AboutMe class="about-me"></AboutMe> -->
-      <!-- TODO 关于我待开发 -->
       <v-btn
         class="to-top-btn"
         fab
@@ -46,7 +47,7 @@
       max-width="50%"
     >
       <v-card>
-        <v-toolbar color="#9C64A7" dark>确认您的身份</v-toolbar>
+        <v-toolbar color="#867892" dark>确认您的身份</v-toolbar>
         <v-card-text>
           <div class="text-h2 pa-12">
             <v-text-field
@@ -79,7 +80,6 @@ import showMenuIcon from "../assets/open.png";
 import dairyCard from "../components/dairyCard";
 import { mapState } from "vuex";
 import WeatherCard from "../components/weather";
-import AboutMe from "../components/aboutMe";
 import MenuBox from "../components/menuBox";
 
 export default {
@@ -97,6 +97,7 @@ export default {
       },
       rules: [(value) => !!value || "Required."],
       menuStatus: true, //菜单是否展开
+      curSelectedOption: 0 //当前选中菜单分类
     };
   },
   components: {
@@ -109,10 +110,19 @@ export default {
       visitorInfo: (state) => state.visitorInfo,
     }),
   },
-  watch: {},
+  watch: {
+    curSelectedOption(val){
+      if(val){
+        this.getArticleListByTag(val)
+      }else{
+        this.getArticleList()
+      }
+      console.log(val)
+    }
+  },
   mounted() {
     this.getArticleList();
-    this.initBgImg()
+    this.initBgImg();
   },
   methods: {
     toTopFun() {
@@ -128,6 +138,20 @@ export default {
         });
         this.noteList = res.data.data;
       });
+    },
+    async getArticleListByTag(id) {
+      let res = await this.$http
+        .get("/api/queryByTagId", {
+          params: {
+            id
+          },
+        })
+        .then((res) => {
+          res.data.data.forEach((element) => {
+            element.isFold = true;
+          });
+          this.noteList = res.data.data;
+        });
     },
     identity() {
       if (

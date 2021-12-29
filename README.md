@@ -38,6 +38,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 背景每次进入动态变化
 - 引入分类菜单
 - 404页面
+#### 2021-12-29
+- 加入tag
 ### TODO LIST
 - 文章新增编辑页面的标题文本框太短了 显示不完全
 - AboutMe 做个组件放在首页算了
