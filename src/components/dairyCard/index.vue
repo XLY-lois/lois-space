@@ -9,6 +9,7 @@
             </span>
             <span class="article-tags">
               <v-chip
+                v-show="noteObj.name_tag"
                 close-icon="mdi-close-outline"
                 :color="noteObj.color_tag"
                 label
@@ -38,17 +39,17 @@
         ></CommentCard>
 
         <div class="fold-open" @click="changeShowStatus(noteObj.id)">
-          <img 
+          <img
             class="operation-icon"
-            v-show="noteObj.isFold" 
-            :src="openIcon" 
-            alt="展开" 
+            v-show="noteObj.isFold"
+            :src="openIcon"
+            alt="展开"
           />
-          <img 
+          <img
             class="operation-icon"
-            v-show="!noteObj.isFold" 
-            :src="foldIcon" 
-            alt="收起" 
+            v-show="!noteObj.isFold"
+            :src="foldIcon"
+            alt="收起"
           />
         </div>
       </div>

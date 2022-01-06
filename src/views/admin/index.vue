@@ -106,7 +106,7 @@ export default {
       desserts: [], //文章列表
       backIcon,
       collapsed: false,
-      curSelectItem: ''
+      curSelectItem: 1
     };
   },
   mounted() {

@@ -8,9 +8,9 @@
     </div>
     <div class="body">
       <div class="main-box">
-        <MenuBox 
-          ref="menu" 
-          :menuStatus.sync="menuStatus" 
+        <MenuBox
+          ref="menu"
+          :menuStatus.sync="menuStatus"
           :curSelectedOption.sync="curSelectedOption"
         >
         </MenuBox>
@@ -97,7 +97,7 @@ export default {
       },
       rules: [(value) => !!value || "Required."],
       menuStatus: true, //菜单是否展开
-      curSelectedOption: 0 //当前选中菜单分类
+      curSelectedOption: 1, //当前选中菜单分类
     };
   },
   components: {
@@ -111,14 +111,14 @@ export default {
     }),
   },
   watch: {
-    curSelectedOption(val){
-      if(val){
-        this.getArticleListByTag(val)
-      }else{
-        this.getArticleList()
-      }
+    curSelectedOption(val) {
       console.log(val)
-    }
+      if (val == 1) {
+        this.getArticleList();
+      } else {
+        this.getArticleListByTag(val);
+      }
+    },
   },
   mounted() {
     this.getArticleList();
@@ -143,7 +143,7 @@ export default {
       let res = await this.$http
         .get("/api/queryByTagId", {
           params: {
-            id
+            id,
           },
         })
         .then((res) => {
@@ -176,24 +176,9 @@ export default {
     showMenu() {
       this.$refs.menu.showMenu();
     },
-    randomNum(minNum, maxNum) {
-      //生成 X-Y的随机数
-      switch (arguments.length) {
-        case 1:
-          return parseInt(Math.random() * minNum + 1, 10);
-          break;
-        case 2:
-          return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
-          break;
-        default:
-          return 0;
-          break;
-      }
-    },
     initBgImg() {
-      let randomNum = this.randomNum(1, 6);
-      let img = require(`./../assets/bgImg/bg${randomNum}.jpg`);
-      this.$refs.container.style.backgroundImage = `url(${img})`;
+      // this.$refs.container.style.backgroundImage = `url(http://127.0.0.1:8081/api/getBgImg)`;
+      this.$refs.container.style.backgroundImage = `url(http://114.132.240.121:3000/getBgImg)`;
     },
   },
 };

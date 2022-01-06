@@ -36,7 +36,8 @@ export default {
   watch: {
     active: {
       handler(val) {
-        this.$emit("update:curSelectedOption", val[0]-1);
+        console.log(val)
+        this.$emit("update:curSelectedOption", val[0]);
       },
       deep: true,
     },
@@ -65,7 +66,7 @@ export default {
       let res = await this.$http
         .get("/api/getClassificationList")
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.menuList = res.data;
         });
     },
