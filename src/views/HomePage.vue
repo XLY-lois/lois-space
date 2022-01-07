@@ -177,8 +177,8 @@ export default {
       this.$refs.menu.showMenu();
     },
     initBgImg() {
-      // this.$refs.container.style.backgroundImage = `url(http://127.0.0.1:8081/api/getBgImg)`;
-      this.$refs.container.style.backgroundImage = `url(http://114.132.240.121:3000/getBgImg)`;
+      this.$refs.container.style.backgroundImage = `url(http://127.0.0.1:8081/api/getBgImg)`;
+      // this.$refs.container.style.backgroundImage = `url(http://114.132.240.121:3000/getBgImg)`;
     },
   },
 };

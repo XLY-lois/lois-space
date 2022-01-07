@@ -41,7 +41,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 #### 2021-12-29
 - 加入tag
 #### 2022-1-6
-- fix:首页分类默认选中文字
-### TODO LIST
-- 文章新增编辑页面的标题文本框太短了 显示不完全
-- AboutMe 做个组件放在首页算了
+- fix:分类和tag解耦
