@@ -5,7 +5,7 @@
         <div class="title-box">
           <v-text-field
             v-model.trim="articleObj.titleContent"
-            label="title"
+            label="标题"
             color="#9C64A7"
             class="title-input"
           >
@@ -16,9 +16,20 @@
       <div class="card-content">
         <div id="div1"></div>
       </div>
-      <div class="card-footer"></div>
+      <div class="card-footer">
+        <v-select
+          v-model="selectedTag"
+          class="tag-select"
+          :items="tagList"
+          item-text="text"
+          item-value="id"
+          label="标签"
+          dense
+          color="#9c64a7"
+        ></v-select>
+      </div>
       <v-btn class="submit-btn" color="#9c64a7" width="8vw" @click="submit">
-        SUBMIT
+        提交
       </v-btn>
     </div>
   </div>
@@ -37,18 +48,23 @@ export default {
         htmlContent: "",
         textContent: "",
       },
+      tagList: ["Foo", "Bar", "Fizz", "Buzz"],
+      selectedTag: "",
     };
   },
   props: {},
   mounted() {
     this.articleObj.time = this.getDate(new Date());
+
     const editor = new E("#div1");
-    editor.config.uploadImgServer = 'api/uploadImg'
+    editor.config.uploadImgServer = "api/uploadImg";
     editor.create();
     if (this.$route.query.id) {
       this.queryArticleById(this.$route.query.id, editor);
     }
     this.editor = editor;
+
+    this.queryTagList();
   },
   methods: {
     getDate(time) {
@@ -62,6 +78,7 @@ export default {
         ...this.articleObj,
         htmlContent: this.editor.txt.html(),
         textContent: this.editor.txt.text(),
+        id_tag: this.selectedTag,
       };
       if (this.$route.query.id) {
         const res = await this.$http
@@ -93,8 +110,14 @@ export default {
             titleContent: result.title,
             id: result.id,
           };
+          this.selectedTag = result.id_tag,
           editor.txt.html(res.data.data[0].content_html);
         });
+    },
+    async queryTagList() {
+      const res = await this.$http.get("/api/getTagList").then((res) => {
+        this.tagList = res.data.data;
+      });
     },
   },
   components: {},
@@ -140,6 +163,12 @@ export default {
       overflow: hidden;
       .details-img {
         width: 50%;
+      }
+    }
+    .card-footer {
+      margin-top: 2vh;
+      .tag-select {
+        width: 30%;
       }
     }
     .submit-btn {

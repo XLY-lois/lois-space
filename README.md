@@ -42,3 +42,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 加入tag
 #### 2022-1-6
 - fix:分类和tag解耦
+#### v1.1.1TODO
+- 后台文章编辑、添加页加入tag功能 √
+- 关于页、纪念日页（先加个空白页）
+- 页脚
+- 后台访客--查询
+#### 2022-1-11
+- 添加、编辑文字页面加入tag下拉选择框

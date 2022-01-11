@@ -215,6 +215,23 @@ export default {
     .menu-box {
       margin-top: 5vh;
       margin-right: 5vw;
+      .ant-btn-primary{
+        background-color: #444693;
+        border-color: #444693;
+      }
+      .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+        background-color: #afb4db3b;
+      }
+      .ant-menu-vertical 
+      .ant-menu-item::after, 
+      .ant-menu-vertical-left 
+      .ant-menu-item::after, 
+      .ant-menu-vertical-right 
+      .ant-menu-item::after, 
+      .ant-menu-inline 
+      .ant-menu-item::after {
+        border-right: 3px solid #444693;
+      }
     }
     .admin-content-box {
       width: 80%;

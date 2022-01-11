@@ -17,7 +17,6 @@ const routes = [
     component: () => import('../views/HomePage.vue'),
     beforeEnter: (to, from, next) => { //路由权限控制 记得解除注释
       let info = store.state.visitorInfo
-      console.log(info)
       if (info.name && info.email) {
         next()
       } else {

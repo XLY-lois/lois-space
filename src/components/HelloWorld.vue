@@ -110,16 +110,11 @@ export default {
         this.visitorName = storage.visitorName
         this.visitorEmail = storage.visitorEmail
       }
-
-      // storage.setItem("c",3);
-
-      // storage.removeItem("c");
     },
     setStorage() {
       let storage = window.localStorage;
       storage.setItem("visitorName", this.visitorName);
       storage.setItem("visitorEmail", this.visitorEmail);
-      console.log(storage);
     },
     validate() {
       this.$refs.form.validate();

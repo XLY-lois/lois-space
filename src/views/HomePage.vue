@@ -112,7 +112,6 @@ export default {
   },
   watch: {
     curSelectedOption(val) {
-      console.log(val)
       if (val == 1) {
         this.getArticleList();
       } else {

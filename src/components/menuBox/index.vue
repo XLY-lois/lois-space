@@ -66,7 +66,6 @@ export default {
       let res = await this.$http
         .get("/api/getClassificationList")
         .then((res) => {
-          // console.log(res.data);
           this.menuList = res.data;
         });
     },

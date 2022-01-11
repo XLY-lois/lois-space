@@ -50,7 +50,6 @@ export default {
   props: {},
   watch: {
     local(val, oldVal) {
-      console.log(val);
     },
   },
   mounted() {
