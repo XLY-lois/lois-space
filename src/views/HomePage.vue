@@ -112,10 +112,14 @@ export default {
   },
   watch: {
     curSelectedOption(val) {
-      if (val == 1) {
-        this.getArticleList();
-      } else {
-        this.getArticleListByTag(val);
+      let str = String(val)
+      let type = str.indexOf("1")
+      if (type === 0) {
+        if (str.length == 1) {
+          this.getArticleList();
+        } else {
+          this.getArticleListByTag(val);
+        }
       }
     },
   },

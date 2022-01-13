@@ -36,7 +36,6 @@ export default {
   watch: {
     active: {
       handler(val) {
-        console.log(val)
         this.$emit("update:curSelectedOption", val[0]);
       },
       deep: true,

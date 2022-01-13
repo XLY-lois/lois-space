@@ -49,3 +49,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 后台访客--查询
 #### 2022-1-11
 - 添加、编辑文字页面加入tag下拉选择框
+#### 2022-1-12
+- fix:welcome页 非空校验

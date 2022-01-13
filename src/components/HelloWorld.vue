@@ -48,7 +48,7 @@ export default {
       visitorEmail: "",
       ip: "",
       rules: {
-        required: (value) => !!value || "Required.",
+        required: (value) => (value && value.indexOf(" ") < 0) || "Required.",
         email: (value) => {
           const pattern =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -79,9 +79,11 @@ export default {
       });
     },
     submit() {
-      this.validate();
-      this.setStorage()
-      this.getVisitor();
+      let validateRes = this.validate();
+      if (validateRes) {
+        this.setStorage();
+        this.getVisitor();
+      }
     },
     jumpTo(url) {
       this.$router.push(url);
@@ -107,8 +109,8 @@ export default {
     checkStorage() {
       let storage = window.localStorage;
       if (storage.visitorName || storage.visitorEmail) {
-        this.visitorName = storage.visitorName
-        this.visitorEmail = storage.visitorEmail
+        this.visitorName = storage.visitorName;
+        this.visitorEmail = storage.visitorEmail;
       }
     },
     setStorage() {
@@ -117,7 +119,7 @@ export default {
       storage.setItem("visitorEmail", this.visitorEmail);
     },
     validate() {
-      this.$refs.form.validate();
+      return this.$refs.form.validate();
     },
     resetValidation() {
       this.$refs.form.resetValidation();
