@@ -49,8 +49,8 @@
         </a-menu>
       </div>
       <div class="admin-content-box">
-        <div v-if="curSelectItem == '1'" class="article-list">
-          <div class="btn-group">
+        <div class="article-list">
+          <div class="btn-group" :class="curSelectItem == '1'?'show-ele':'hide-ele'">
             <v-btn class="btn" @click="delArticleById" color="#ffb6b9" dark>
               删除
             </v-btn>
@@ -69,7 +69,7 @@
               >编辑</v-btn
             >
           </div>
-          <template>
+          <template v-if="curSelectItem == '1'">
             <v-data-table
               v-model="selected"
               :headers="headers"
@@ -81,6 +81,9 @@
               item-key="id"
             ></v-data-table>
           </template>
+          <VisitorList
+            v-if="curSelectItem == '3'"
+          ></VisitorList>
         </div>
       </div>
     </div>
@@ -91,7 +94,7 @@
 <script>
 import backIcon from "../../assets/back.png";
 import logo from "../../assets/loisBlack.png";
-
+import VisitorList from "../../components/visitorList";
 export default {
   data() {
     return {
@@ -106,14 +109,16 @@ export default {
       desserts: [], //文章列表
       backIcon,
       collapsed: false,
-      curSelectItem: 1
+      curSelectItem: 1,
     };
+  },
+  components: {
+    VisitorList,
   },
   mounted() {
     this.getArticleList();
   },
-  watch: {
-  },
+  watch: {},
   methods: {
     jumpTo(type, url, id) {
       if (type === "edit") {
@@ -153,7 +158,7 @@ export default {
       this.collapsed = !this.collapsed;
     },
     handleSelect(e) {
-      this.curSelectItem = e.key
+      this.curSelectItem = e.key;
     },
   },
 };
@@ -215,21 +220,17 @@ export default {
     .menu-box {
       margin-top: 5vh;
       margin-right: 5vw;
-      .ant-btn-primary{
+      .ant-btn-primary {
         background-color: #444693;
         border-color: #444693;
       }
       .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
         background-color: #afb4db3b;
       }
-      .ant-menu-vertical 
-      .ant-menu-item::after, 
-      .ant-menu-vertical-left 
-      .ant-menu-item::after, 
-      .ant-menu-vertical-right 
-      .ant-menu-item::after, 
-      .ant-menu-inline 
-      .ant-menu-item::after {
+      .ant-menu-vertical .ant-menu-item::after,
+      .ant-menu-vertical-left .ant-menu-item::after,
+      .ant-menu-vertical-right .ant-menu-item::after,
+      .ant-menu-inline .ant-menu-item::after {
         border-right: 3px solid #444693;
       }
     }
@@ -249,5 +250,11 @@ export default {
       }
     }
   }
+}
+.show-ele{
+  visibility: visible;
+}
+.hide-ele{
+  visibility: hidden;
 }
 </style>

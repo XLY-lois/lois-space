@@ -15,13 +15,21 @@
         >
         </MenuBox>
         <div class="content-box">
-          <dairyCard
-            v-for="item in noteList"
-            :key="item.id"
-            :noteObj="item"
-            @changeShowStatus="changeShowStatus"
-          >
-          </dairyCard>
+          <dir v-if="String(curSelectedOption).indexOf(1) == 0">
+            <dairyCard
+              v-for="item in noteList"
+              :key="item.id"
+              :noteObj="item"
+              @changeShowStatus="changeShowStatus"
+            >
+            </dairyCard>
+          </dir>
+          <div v-if="curSelectedOption == 2">
+            <Days></Days>
+          </div>
+          <div v-if="curSelectedOption == 3">
+            <AboutMe></AboutMe>
+          </div>
         </div>
       </div>
       <v-btn
@@ -40,6 +48,9 @@
         :src="showMenuIcon"
         alt=""
       />
+    </div>
+    <div class="footer">
+      <span>我是空白的页脚</span>
     </div>
     <v-dialog
       v-model="dialog"
@@ -81,6 +92,8 @@ import dairyCard from "../components/dairyCard";
 import { mapState } from "vuex";
 import WeatherCard from "../components/weather";
 import MenuBox from "../components/menuBox";
+import AboutMe from "../components/aboutMe"
+import Days from "../components/days"
 
 export default {
   data() {
@@ -104,6 +117,8 @@ export default {
     dairyCard,
     WeatherCard,
     MenuBox,
+    AboutMe,
+    Days
   },
   computed: {
     ...mapState({
@@ -112,8 +127,8 @@ export default {
   },
   watch: {
     curSelectedOption(val) {
-      let str = String(val)
-      let type = str.indexOf("1")
+      let str = String(val);
+      let type = str.indexOf("1");
       if (type === 0) {
         if (str.length == 1) {
           this.getArticleList();
@@ -232,6 +247,7 @@ $bgUrl: "./../assets/bgImg/bg1.jpg";
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 84vh;
     .main-box {
       width: 70%;
       display: flex;
@@ -271,6 +287,16 @@ $bgUrl: "./../assets/bgImg/bg1.jpg";
       right: 3vh;
       padding: 2vh;
     }
+  }
+  .footer {
+    height: 10vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>

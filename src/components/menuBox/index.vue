@@ -75,7 +75,7 @@ export default {
 <style lang="scss" scoped>
 .menu-box {
   width: 20%;
-  height: 80vh;
+  height: 76vh;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.8);
   margin: 0 2%;
