@@ -8,7 +8,7 @@
       v-model="commentObj.content"
     ></v-textarea>
     <div class="operation">
-      <v-btn outlined color="#d1b6e1" @click="submitComment"> 好了 </v-btn>
+      <v-btn outlined color="#585eaa" @click="submitComment"> 好了 </v-btn>
     </div>
   </div>
 </template>
