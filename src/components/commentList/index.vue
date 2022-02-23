@@ -5,11 +5,14 @@
       v-for="item in commentsList"
       :key="item.comment_id"
     >
-      <div class="base-info">
-        <span class="name">{{ item.name }} 说：</span>
-        <span class="time">{{ item.created_time }}</span>
+      <div class="time">{{ item.created_time }}</div>
+      <div class="test">
+        <div class="base-info">
+          <div class="name">{{ item.name }}</div>
+        </div>
+        <div class="triangle_border_left"></div>
+        <div class="comment-content">{{ item.comment_content }}</div>
       </div>
-      <div class="comment-content">{{ item.comment_content }}</div>
     </div>
   </div>
 </template>
@@ -31,7 +34,7 @@ export default {
   mounted() {
     this.getCommentById(this.articleId);
     Bus.$on("refreshCommentsList", (target) => {
-      this.getCommentById(this.articleId)
+      this.getCommentById(this.articleId);
     });
   },
   methods: {
@@ -55,15 +58,31 @@ export default {
   .comment-item {
     color: #00000094;
     margin-top: 2vh;
-    .base-info {
+    // display: flex;
+    // align-items: center;
+    .test {
       display: flex;
-      justify-content: space-between;
-      margin: 1vh 1vw;
-      font-size: 90%;
-    }
-    .comment-content {
-      margin: 1vh 1vw;
-      font-size: 80%;
+      align-items: center;
+      .base-info {
+        margin: 1vh 1vw;
+        font-size: 90%;
+      }
+      .triangle_border_left {
+        width: 0;
+        height: 0;
+        border-width: 5px 5px 5px 0;
+        border-style: solid;
+        border-color: transparent #fff transparent transparent; /*透明 灰 透明 透明 */
+        position: relative;
+      }
+      .comment-content {
+        margin: 1vh 0;
+        padding: 4px;
+        border-radius: 5px;
+        font-size: 80%;
+        min-height: 4vh;
+        background-color: #fff;
+      }
     }
   }
 }
