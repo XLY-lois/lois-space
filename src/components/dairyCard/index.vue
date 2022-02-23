@@ -24,11 +24,20 @@
         </div>
       </div>
       <div class="card-content">
-        <div
-          class="html-content"
-          :class="noteObj.isFold ? 'fold' : ''"
-          v-html="noteObj.content_html"
-        ></div>
+        <v-lazy
+          v-model="isActive"
+          :options="{
+            threshold: 0.5,
+          }"
+          min-height="200"
+          transition="fade-transition"
+        >
+          <div
+            class="html-content"
+            :class="noteObj.isFold ? 'fold' : ''"
+            v-html="noteObj.content_html"
+          ></div>
+        </v-lazy>
         <CommentList
           v-if="!noteObj.isFold"
           :articleId="noteObj.id"
@@ -71,6 +80,7 @@ export default {
       foldIcon,
       htmlContent: "",
       isFold: true,
+      isActive: false,
     };
   },
   components: {

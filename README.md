@@ -57,3 +57,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 关于页、纪念日页（先加个空白页）
 - 页脚 空白的
 - 后台访客--查询
+#### 2022-2-23
+- dairyCard组件懒加载
